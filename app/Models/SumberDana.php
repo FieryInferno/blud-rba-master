@@ -17,14 +17,14 @@ class SumberDana extends Model
      * @var array
      */
     protected $fillable = [
-        'akun_id', 'nama_sumber_dana', 'nama_bank', 'no_rekening'
+        'akun_id', 'nama_sumber_dana', 'nama_bank', 'no_rekening', 'namaAkun'
     ];
 
-     /**
+    /**
      * Relation to akun
      */
-    public function akun()
-    {
-        return $this->belongsTo('App\Models\Akun');
-    }
+    // public function akun()
+    // {
+    //     return $this->belongsTo('App\Models\Akun');
+    // }
 }

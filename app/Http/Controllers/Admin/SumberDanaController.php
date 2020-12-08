@@ -43,12 +43,13 @@ class SumberDanaController extends Controller
      */
     public function index()
     {
-        $where = function ($query) {
-            $query->where('tipe', 1);
-        };
-        $akun = $this->akun->get(['*'], $where);
+        // $where = function ($query) {
+        //     $query->where('tipe', 1);
+        // };
+        // $akun   = $this->akun->get(['*'], $where);
         $sumberDana = $this->sumberDana->get();
-        return view('admin.sumber-dana.index', compact('sumberDana', 'akun')); 
+        // return view('admin.sumber-dana.index', compact('sumberDana', 'akun')); 
+        return view('admin.sumber-dana.index', compact('sumberDana'));
     }
 
     /**
@@ -59,14 +60,20 @@ class SumberDanaController extends Controller
      */
     public function store(SumberDanaRequest $request)
     {
+        // $this->sumberDana->create([
+        //     'nama_sumber_dana' => $request->nama_sumber_dana,
+        //     'akun_id' => $request->akun,
+        //     'nama_bank' => $request->nama_bank,
+        //     'no_rekening' => $request->no_rekening,
+        // ]);
         $this->sumberDana->create([
-            'nama_sumber_dana' => $request->nama_sumber_dana,
-            'akun_id' => $request->akun,
-            'nama_bank' => $request->nama_bank,
-            'no_rekening' => $request->no_rekening,
+            'nama_sumber_dana'  => $request->nama_sumber_dana,
+            'akun_id'           => $request->akun,
+            'namaAkun'          => $request->namaAkun,
+            'nama_bank'         => $request->nama_bank,
+            'no_rekening'       => $request->no_rekening,
         ]);
-         return redirect()->back()
-                ->with(['success' => 'Sumber dana berhasil disimpan']);
+        return redirect()->back()->with(['success' => 'Sumber dana berhasil disimpan']);
     }
 
     /**

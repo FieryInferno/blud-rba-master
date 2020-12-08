@@ -56,8 +56,8 @@
                             @foreach ($sumberDana as $item)
                                 <tr>
                                     <td>{{ $item->nama_sumber_dana }}</td>
-                                    <td>{{ $item->akun->kode_akun }}</td>
-                                    <td>{{ $item->akun->nama_akun }}</td>
+                                    <td>{{ $item->akun_id }}</td>
+                                    <td>{{ $item->namaAkun }}</td>
                                     <td>{{ $item->nama_bank }}</td>
                                     <td>{{ $item->no_rekening }}</td>
                                     @if (Auth::user()->hasRole('admin'))
@@ -106,12 +106,12 @@
               <input type="text" name="nama_sumber_dana" class="form-control" value="{{ old('nama_sumber_dana') }}" required>
             </div>
             <div class="form-group">
-              <label>Kode Akun</label>
-              <select name="akun" class="form-control selectpicker" title="Pilih Kode">
-                @foreach ($akun as $item)
-                  <option value="{{ $item->id }}">{{ $item->kode_akun }} - {{ $item->nama_akun }}</option>
-                @endforeach
-              </select>
+              <label>Kode Sumber Dana</label>
+              <input type="text" name="akun" class="form-control" value="{{ old('akun') }}" required>
+            </div>
+            <div class="form-group">
+              <label>Nama Akun</label>
+              <input type="text" name="namaAkun" class="form-control" value="{{ old('namaAkun') }}" required>
             </div>
             <div class="form-group">
               <label>Nama Bank</label>
@@ -154,9 +154,7 @@
             <div class="form-group">
               <label>Kode Akun</label>
               <select name="akun" class="form-control selectpicker" title="Pilih Kode" id="edit-kode_akun">
-                @foreach ($akun as $item)
-                  <option value="{{ $item->id }}">{{ $item->kode_akun }} - {{ $item->nama_akun }}</option>
-                @endforeach
+                
               </select>
             </div>
             <div class="form-group">
