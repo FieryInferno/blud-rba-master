@@ -13,21 +13,21 @@ use App\Repositories\RKA\RKARepository;
 
 class AkunController extends Controller
 {
-     /**
+    /**
      * Akun repository.
      * 
      * @var AkunRepository
      */
     private $akun;
 
-     /**
+    /**
      * Kategori repository.
      * 
      * @var KategorRepository
      */
     private $kategori;
 
-     /**
+    /**
      * SSH repository.
      * 
      * @var SSHRepository
@@ -103,7 +103,6 @@ class AkunController extends Controller
         return redirect()->back()
                 ->with(['success' => "{$akun->nama_akun} berhasil disimpan"]);
     }
-   
     /**
      * Update the specified resource in storage.
      *

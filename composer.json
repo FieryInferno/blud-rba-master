@@ -11,6 +11,7 @@
         "php": "^7.2",
         "arcanedev/log-viewer": "~5",
         "barryvdh/laravel-dompdf": "^0.8.5",
+        "doctrine/dbal": "^3.0",
         "fideloper/proxy": "^4.0",
         "inspector-apm/inspector-laravel": "^4.1",
         "laravel/framework": "^6.2",

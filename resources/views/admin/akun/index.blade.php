@@ -345,13 +345,16 @@
     $('table').DataTable();
 
     $('.akun').keyup(function () {
-      const tipe = $('input[name ="tipe"]').val(); 
-      const kelompok = $('input[name ="kelompok"]').val(); 
-      const jenis = $('input[name ="jenis"]').val(); 
-      const objek = $('input[name ="objek"]').val(); 
-      const rincian = $('input[name ="rincian"]').val(); 
+      const tipe      = $('input[name ="tipe"]').val(); 
+      const kelompok  = $('input[name ="kelompok"]').val(); 
+      const jenis     = $('input[name ="jenis"]').val(); 
+      const objek     = $('input[name ="objek"]').val(); 
+      const rincian   = $('input[name ="rincian"]').val(); 
+      const sub1      = $('input[name ="sub1"]'   ).val(); 
+      const sub2      = $('input[name ="sub2"]').val(); 
+      const sub3      = $('input[name ="sub3"]').val(); 
       
-      var concatData = '';
+      var concatData  = '';
       if (tipe != ''){
         concatData += tipe;
       }
@@ -371,6 +374,9 @@
       if (rincian != ''){
         concatData += '.'+rincian;
       }
+      if (sub1 != '') concatData  += '.' + sub1;
+      if (sub2 != '') concatData  += '.' + sub2;
+      if (sub3 != '') concatData  += '.' + sub3;
 
       $('input[name ="kode_akun"]').val(concatData); 
     })
