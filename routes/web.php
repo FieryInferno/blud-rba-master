@@ -111,6 +111,12 @@ Route::prefix('blud')->namespace('Admin')->middleware('auth')->group(function ()
         Route::put('kegiatan/edit', 'KegiatanController@update')->name('admin.kegiatan.update');
         Route::delete('kegiatan/hapus', 'KegiatanController@destroy')->name('admin.kegiatan.destroy');
 
+        // sub kegiatan
+        Route::get('subKegiatan', 'SubKegiatanController@index')->name('admin.subKegiatan.index');
+        Route::post('subKegiatan/buat', 'SubKegiatanController@store')->name('admin.subKegiatan.store');
+        Route::put('subKegiatan/edit', 'SubKegiatanController@update')->name('admin.subKegiatan.update');
+        Route::delete('kegiatan/hapus', 'KegiatanController@destroy')->name('admin.kegiatan.destroy');
+
         // opd
         Route::get('opd', 'OpdController@index')->name('admin.opd.index');
         Route::post('opd/buat', 'OpdController@store')->name('admin.opd.store');

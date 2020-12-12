@@ -53,12 +53,12 @@ class KegiatanController extends Controller
      */
     public function index()
     {
-        $where = function ($query) {
+        $where  = function ($query) {
             $query->whereNotNull('kode');
         };
-        $kegiatan = $this->kegiatan->get();
-        $program = $this->program->get(['*'], $where);
-        $bidang = $this->bidang->get(['*'], $where);
+        $kegiatan   = $this->kegiatan->get();
+        $program    = $this->program->get(['*'], $where);
+        $bidang     = $this->bidang->get(['*'], $where);
         return view('admin.kegiatan.index', compact('kegiatan', 'program', 'bidang'));
     }
 

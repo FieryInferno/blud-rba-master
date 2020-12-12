@@ -45,7 +45,6 @@
                               <th>Kode Program</th>
                               <th>Kode Kegiatan</th>
                               <th>Nama Kegiatan</th>
-                              <th>Sub Kegiatan</th>
                               @if (Auth::user()->hasRole('admin'))
                               <th>Opsi</th>
                               @endif
@@ -58,7 +57,6 @@
                                 <td>{{ $item->kode_program }}</td>
                                 <td>{{ $item->kode }}</td>
                                 <td>{{ $item->nama_kegiatan }}</td>
-                                <td>{{ $item->subKegiatan }}</td>
                                 @if (Auth::user()->hasRole('admin'))
                                 <td>
                                   <button class="btn btn-sm btn-warning btn-edit"
@@ -126,14 +124,6 @@
             <div class="form-group">
               <label>Nama Kegiatan</label>
               <input type="text" name="nama_kegiatan" class="form-control" value="{{ old('nama_kegiatan') }}" required>
-            </div>
-            <div class="form-group">
-              <label>Kode Sub Kegiatan</label>
-              <input type="text" name="kodeSubKegiatan" class="form-control" value="{{ old('kodeSubKegiatan') }}">
-            </div>
-            <div class="form-group">
-              <label>Nama Kegiatan</label>
-              <input type="text" name="subKegiatan" class="form-control" value="{{ old('subKegiatan') }}" required>
             </div>
         </div>
         <div class="modal-footer bg-whitesmoke br">

@@ -91,10 +91,15 @@
                               <input type="text" class="form-control" name="sasaran_kegiatan">
                           </div>
                       </div>
-                  </div>
+                    </div>
+                    @foreach ($pemetaanKegiatan as $map)
+                      <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                        <label class="custom-control-label" for="customCheck1">{{ $map->apbd->nama_kegiatan }}</label>
+                      </div>
+                    @endforeach
                   </div>
                 </div>
-               
                   <div class="card" style="min-height:400px">
                     <div class="card-header">
                       <h4>Rincian RBA</h4>
@@ -116,7 +121,11 @@
                             Sumber Dana
                           </a>
                         </li>
-                        
+                        <li class="nav-item">
+                          <a class="nav-link" id="rkaTab" data-toggle="tab" href="#rka" role="tab" aria-controls="rka" aria-selected="false">
+                            RKA APBD
+                          </a>
+                        </li>
                       </ul>
                       <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade" id="indikator" role="tabpanel" aria-labelledby="indikator-tab">
@@ -198,13 +207,31 @@
                             </div>
                           </div>
                         </div>
+                        <div class="tab-pane fade" id="rka" role="tabpanel" aria-labelledby="sumber-dana-tab">
+                          <div class="row">
+                            <div class="col">
+                              <table class="table tableRka">
+                                <thead>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                              </table>
+                              <p id="totalRka" class="text-right font-weight-bold"></p>
+                              <button type="submit" id="buttonSubmit" class="btn btn-primary mt-3">
+                                <i class="fa fa-save"></i>
+                                Simpan
+                              </button>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    
                   </div>
               </div>
-
-              
           </div>
       </div>
   </section>
@@ -231,16 +258,26 @@
               </thead>
               <tbody>
                 @foreach ($akun as $item)
+                  @php
+                    $kodeAkun = $item->tipe;
+                    if ($item->kelompok) $kodeAkun  .= '.' . $item->kelompok;
+                    if ($item->jenis) $kodeAkun     .= '.' . $item->jenis;
+                    if ($item->objek) $kodeAkun     .= '.' . $item->objek;
+                    if ($item->rincian) $kodeAkun   .= '.' . $item->rincian;
+                    if ($item->sub1) $kodeAkun      .= '.' . $item->sub1;
+                    if ($item->sub2) $kodeAkun      .= '.' . $item->sub2;
+                    if ($item->sub3) $kodeAkun      .= '.' . $item->sub3;
+                  @endphp
                   <tr class="text-dark {{ ($item->is_parent) ? 'table-primary' : '' }}"
                     data-id="{{ $item->id }}"
-                    data-kode-rekening="{{ $item->kode_akun }}"
+                    data-kode-rekening="{{ $kodeAkun }}"
                     data-nama-rekening="{{ $item->nama_akun }}">
                       <td>
                         @if (!$item->is_parent)
                           <input type="checkbox" name="rekening" value="{{ $item->id }}">
                         @endif
                       </td>
-                      <td>{{ $item->kode_akun }}</td>
+                      <td>{{ $kodeAkun }}</td>
                       <td>{{ $item->nama_akun }}</td>
                     </tr>
                 @endforeach
@@ -307,14 +344,14 @@
       var rekeningSSH = [];
 
       $('.table-rekening').DataTable({
-          paging: false,
+          // paging: false,
           info: false,
-          ordering: false,
-          bFilter: false,
+          // ordering: false,
+          // bFilter: false,
         });
 
       const parents = [];
-       $.ajax({
+      $.ajax({
           type: "POST",
           url: "{{ route('admin.akun.parent') }}",
           data: "tipe=5",
@@ -342,17 +379,17 @@
 
       var sumberDanaRba = [];
       $.get("{{ route('admin.sumberdana.data') }}", function (response, status) {
-         response.data.forEach(function (item) {
-           sumberDanaRba.push({
-             id : item.id,
-             nama_sumber_dana : item.nama_sumber_dana
-           })
-         });
+        response.data.forEach(function (item) {
+          sumberDanaRba.push({
+            id : item.id,
+            nama_sumber_dana : item.nama_sumber_dana
+          })
+        });
       });
 
       $('#form-rba').on('submit', function (e) {
         e.preventDefault();
-       var formData = $(this).serialize();
+        var formData = $(this).serialize();
         $.ajax({
           type: "POST",
           url: "{{ route('admin.rba2.save') }}",

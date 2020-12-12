@@ -90,6 +90,7 @@
                   <li class="{{ Request::routeIs('admin.pejabat_unit.*') == 1 ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.pejabat_unit.index') }}">Pejabat Unit</a></li>
                   <li class="{{ Request::routeIs('admin.program.*') == 1 ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.program.index') }}">Program</a></li>
                   <li class="{{ Request::routeIs('admin.kegiatan.*') == 1 ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.kegiatan.index') }}">Kegiatan</a></li>
+                  <li class="{{ Request::routeIs('admin.subKegiatan.*') == 1 ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.subKegiatan.index') }}">Sub Kegiatan</a></li>
                 </ul>
               </li>
               <li class="nav-item dropdown {{ Request::is('blud/data-dasar/*') ? 'active' : '' }}">

@@ -14,7 +14,7 @@ class Kegiatan extends Model
      * @var array
      */
     protected $fillable = [
-        'kode', 'kode_bidang', 'kode_program', 'nama_kegiatan', 'kodeSubKegiatan', 'subKegiatan'
+        'kode', 'kode_bidang', 'kode_program', 'nama_kegiatan'
     ];
 
     /**
@@ -25,5 +25,10 @@ class Kegiatan extends Model
     public function program()
     {
         return $this->belongsTo('App\Models\Program', 'kode_program', 'kode');
+    }
+
+    public function subKegiatan()
+    {
+        return $this->hasMany('App\Models\SubKegiatan', 'kodeKegiatan', 'kode');
     }
 }

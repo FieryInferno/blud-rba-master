@@ -14,10 +14,10 @@ use App\Repositories\Belanja\SPPRepository;
 use App\Repositories\BKU\BKURincianRepository;
 use App\Repositories\User\UserRepository;
 use App\Repositories\DataDasar\AkunRepository;
+use App\Repositories\DataDasar\MapKegiatanRepository;
 use App\Repositories\Organisasi\KegiatanRepository;
 use App\Repositories\DataDasar\SumberDanaRepository;
 use App\Repositories\Organisasi\UnitKerjaRepository;
-use App\Repositories\DataDasar\MapKegiatanRepository;
 use App\Repositories\Pengembalian\KontraposRepository;
 use App\Repositories\RBA\RBAIndikatorKerjaRepository;
 use App\Repositories\RBA\RBARincianAnggaranRepository;
@@ -60,7 +60,7 @@ class RBA221Controller extends Controller
      */
     private $sumberDana;
 
-     /**
+    /**
      * Unit kerja repository.
      * 
      * @var RBARincianAnggaran
@@ -101,7 +101,15 @@ class RBA221Controller extends Controller
      * @var BKURincianRepository
      */
     private $bkuRincian;
-     /**
+
+    /**
+     * Map Kegiatan Repository
+     *
+     * @var MapKegiatanRepository
+     */
+    private $pemetaanKegiatan;
+
+    /**
      * Construct.
      */
     public function __construct(
@@ -115,19 +123,21 @@ class RBA221Controller extends Controller
         KegiatanRepository $kegiatan,
         UserRepository $user,
         SPPRepository $spp,
-        BKURincianRepository $bkuRincian
+        BKURincianRepository $bkuRincian,
+        MapKegiatanRepository $pemetaanKegiatan
     ) {
-        $this->unitKerja = $unitKerja;
-        $this->rba = $rba;
-        $this->akun = $akun;
-        $this->sumberDana = $sumberDana;
-        $this->rincianAnggaran = $rincianAnggaran;
-        $this->rincianSumberDana = $rincianSumberDana;
-        $this->indikatorKerja = $indikatorKerja;
-        $this->kegiatan = $kegiatan;
-        $this->user = $user;
-        $this->spp = $spp;
-        $this->bkuRincian = $bkuRincian;
+        $this->unitKerja            = $unitKerja;
+        $this->rba                  = $rba;
+        $this->akun                 = $akun;
+        $this->sumberDana           = $sumberDana;
+        $this->rincianAnggaran      = $rincianAnggaran;
+        $this->rincianSumberDana    = $rincianSumberDana;
+        $this->indikatorKerja       = $indikatorKerja;
+        $this->kegiatan             = $kegiatan;
+        $this->user                 = $user;
+        $this->spp                  = $spp;
+        $this->bkuRincian           = $bkuRincian;
+        $this->pemetaanKegiatan     = $pemetaanKegiatan;
         $this->middleware('permission:buat RBA')->only('create');
     }
 
@@ -138,8 +148,8 @@ class RBA221Controller extends Controller
      */
     public function index(Request $request)
     {
-       $user = $this->user->find(auth()->user()->id, ['*'], ['role', 'unitKerja']);
-       $unitKerja = $this->unitKerja->get();
+        $user               = $this->user->find(auth()->user()->id, ['*'], ['role', 'unitKerja']);
+        $unitKerja          = $this->unitKerja->get();
 
         $whereRba = function ($query) use ($user, $request) {
             $query->where('kode_rba', Rba::KODE_RBA_221);
@@ -194,6 +204,7 @@ class RBA221Controller extends Controller
     public function create()
     {
         $user = $this->user->find(auth()->user()->id, ['*'], ['role', 'unitKerja']);
+        $pemetaanKegiatan   = $this->pemetaanKegiatan->get(['*'], null, ['apbd']);
 
         $whereAkun = function ($query){
             $query->where('tipe', 5);
@@ -216,7 +227,7 @@ class RBA221Controller extends Controller
         
         $unitKerja = $this->unitKerja->get(['*'], $whereUnitKerja);
 
-        return view('admin.rba.rba221.create', compact('unitKerja', 'akun'));
+        return view('admin.rba.rba221.create', compact('unitKerja', 'akun', 'pemetaanKegiatan'));
     }
 
     /**
