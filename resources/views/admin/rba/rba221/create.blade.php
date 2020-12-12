@@ -77,9 +77,12 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col">
-                                <label>Kegiatan</label>
+                                <label>Sub Kegiatan</label>
                                 <select name="kegiatan" id="kegiatan" class="form-control">
-                                    <option value="">Pilih Kegiatan</option>
+                                  <option value="" selected>Pilih Sub Kegiatan</option>
+                                  @foreach ($mapSubKegiatan as $kegiatan)
+                                    <option value="{{ $kegiatan->idMapSubKegiatan }}">{{ $kegiatan->subKegiatanApbd->namaSubKegiatan }}</option>
+                                  @endforeach
                                 </select>
                             </div>
                         </div>

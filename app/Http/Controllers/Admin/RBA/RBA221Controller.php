@@ -15,6 +15,7 @@ use App\Repositories\BKU\BKURincianRepository;
 use App\Repositories\User\UserRepository;
 use App\Repositories\DataDasar\AkunRepository;
 use App\Repositories\DataDasar\MapKegiatanRepository;
+use App\Repositories\DataDasar\MapSubKegiatanRepository;
 use App\Repositories\Organisasi\KegiatanRepository;
 use App\Repositories\DataDasar\SumberDanaRepository;
 use App\Repositories\Organisasi\UnitKerjaRepository;
@@ -108,6 +109,7 @@ class RBA221Controller extends Controller
      * @var MapKegiatanRepository
      */
     private $pemetaanKegiatan;
+    private $mapSubKegiatan;
 
     /**
      * Construct.
@@ -124,7 +126,8 @@ class RBA221Controller extends Controller
         UserRepository $user,
         SPPRepository $spp,
         BKURincianRepository $bkuRincian,
-        MapKegiatanRepository $pemetaanKegiatan
+        MapKegiatanRepository $pemetaanKegiatan,
+        MapSubKegiatanRepository $mapSubKegiatan
     ) {
         $this->unitKerja            = $unitKerja;
         $this->rba                  = $rba;
@@ -138,6 +141,7 @@ class RBA221Controller extends Controller
         $this->spp                  = $spp;
         $this->bkuRincian           = $bkuRincian;
         $this->pemetaanKegiatan     = $pemetaanKegiatan;
+        $this->mapSubKegiatan       = $mapSubKegiatan;
         $this->middleware('permission:buat RBA')->only('create');
     }
 
@@ -203,8 +207,9 @@ class RBA221Controller extends Controller
      */
     public function create()
     {
-        $user = $this->user->find(auth()->user()->id, ['*'], ['role', 'unitKerja']);
+        $user               = $this->user->find(auth()->user()->id, ['*'], ['role', 'unitKerja']);
         $pemetaanKegiatan   = $this->pemetaanKegiatan->get(['*'], null, ['apbd']);
+        $mapSubKegiatan     = $this->mapSubKegiatan->get();
 
         $whereAkun = function ($query){
             $query->where('tipe', 5);
@@ -227,7 +232,7 @@ class RBA221Controller extends Controller
         
         $unitKerja = $this->unitKerja->get(['*'], $whereUnitKerja);
 
-        return view('admin.rba.rba221.create', compact('unitKerja', 'akun', 'pemetaanKegiatan'));
+        return view('admin.rba.rba221.create', compact('unitKerja', 'akun', 'pemetaanKegiatan', 'mapSubKegiatan'));
     }
 
     /**
