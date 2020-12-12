@@ -12,6 +12,7 @@ use App\Repositories\RKA\RKARepository;
 use App\Http\Requests\RKA\RKA221Request;
 use App\Repositories\User\UserRepository;
 use App\Repositories\DataDasar\AkunRepository;
+use App\Repositories\DataDasar\MapSubKegiatanRepository;
 use App\Repositories\Organisasi\UnitKerjaRepository;
 use App\Repositories\RKA\RKAIndikatorKerjaRepository;
 use App\Repositories\RKA\RKARincianAnggaranRepository;
@@ -67,6 +68,7 @@ class RKA221Controller extends Controller
      * @var RkaIndikatorKerja
      */
     private $indikatorKerja;
+    private $mapSubKegiatan;
 
     /**
      * Constructor.
@@ -79,15 +81,17 @@ class RKA221Controller extends Controller
         UserRepository $user,
         RKARincianAnggaranRepository $rincianAnggaran,
         RKARincianSumberDanaRepository $rincianSumberDana,
-        RKAIndikatorKerjaRepository $indikatorKerja
+        RKAIndikatorKerjaRepository $indikatorKerja,
+        MapSubKegiatanRepository $mapSubKegiatan
     ) {
-        $this->unitKerja = $unitKerja;
-        $this->akun = $akun;
-        $this->rka = $rka;
-        $this->user = $user;
-        $this->rincianAnggaran = $rincianAnggaran;
-        $this->rincianSumberDana = $rincianSumberDana;
-        $this->indikatorKerja = $indikatorKerja;
+        $this->unitKerja            = $unitKerja;
+        $this->akun                 = $akun;
+        $this->rka                  = $rka;
+        $this->user                 = $user;
+        $this->rincianAnggaran      = $rincianAnggaran;
+        $this->rincianSumberDana    = $rincianSumberDana;
+        $this->indikatorKerja       = $indikatorKerja;
+        $this->mapSubKegiatan       = $mapSubKegiatan;
 
         $this->middleware('permission:buat RKA')->only('create');
     }
@@ -155,7 +159,8 @@ class RKA221Controller extends Controller
      */
     public function create()
     {
-        $user = $this->user->find(auth()->user()->id, ['*'], ['role', 'unitKerja']);
+        $user           = $this->user->find(auth()->user()->id, ['*'], ['role', 'unitKerja']);
+        $mapSubKegiatan = $this->mapSubKegiatan->get();
 
         $whereAkun = function ($query) {
             $query->where('tipe', 5)
@@ -185,7 +190,7 @@ class RKA221Controller extends Controller
         
         $unitKerja = $this->unitKerja->get(['*'], $whereUnitKerja);
 
-        return view('admin.rka.rka221.create', compact('unitKerja', 'akun'));
+        return view('admin.rka.rka221.create', compact('unitKerja', 'akun', 'mapSubKegiatan'));
     }
 
     /**
