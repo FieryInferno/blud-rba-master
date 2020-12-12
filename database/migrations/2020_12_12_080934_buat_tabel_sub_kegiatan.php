@@ -16,7 +16,7 @@ class BuatTabelSubKegiatan extends Migration
         Schema::create('subKegiatan', function (Blueprint $table) {
             $table->bigIncrements('idSubKegiatan');
             $table->string('kodeKegiatan');
-            $table->string('kodeSubKegiatan');
+            $table->string('kodeSubKegiatan')->nullable()->index();
             $table->string('namaSubKegiatan');
             $table->foreign('kodeKegiatan')->references('kode')->on('kegiatan')->onDelete('cascade')->onUpdate('cascade');
             $table->softDeletes();

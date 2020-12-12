@@ -167,6 +167,12 @@ Route::prefix('blud')->namespace('Admin')->middleware('auth')->group(function ()
         Route::put('pemetaan-kegiatan/edit', 'MapKegiatanController@update')->name('admin.map_kegiatan.update');
         Route::delete('pemetaan-kegiatan/hapus', 'MapKegiatanController@destroy')->name('admin.map_kegiatan.destroy');
 
+        // pemetaan sub kegiatan
+        Route::get('pemetaanSubKegiatan', 'MapSubKegiatanController@index')->name('admin.mapSubKegiatan.index');
+        Route::post('pemetaanSubKegiatan/buat', 'MapSubKegiatanController@store')->name('admin.mapSubKegiatan.store');
+        Route::put('pemetaanSubKegiatan/edit', 'MapSubKegiatanController@update')->name('admin.mapSubKegiatan.update');
+        Route::delete('pemetaan-kegiatan/hapus', 'MapKegiatanController@destroy')->name('admin.map_kegiatan.destroy');
+
         // sumber dana
         Route::get('sumber-dana', 'SumberDanaController@index')->name('admin.sumber_dana.index');
         Route::post('sumber-dana/buat', 'SumberDanaController@store')->name('admin.sumber_dana.store');

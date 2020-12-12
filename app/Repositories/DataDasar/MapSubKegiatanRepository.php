@@ -2,10 +2,10 @@
 
 namespace App\Repositories\DataDasar;
 
-use App\Models\MapKegiatan;
+use App\Models\MapSubKegiatan;
 use App\Repositories\Repository;
 
-class MapKegiatanRepository extends Repository
+class MapSubKegiatanRepository extends Repository
 {
     /**
      * Specify Model class name
@@ -14,6 +14,6 @@ class MapKegiatanRepository extends Repository
      */
     public function model()
     {
-        return MapKegiatan::class;
+        return MapSubKegiatan::class;
     }
 }

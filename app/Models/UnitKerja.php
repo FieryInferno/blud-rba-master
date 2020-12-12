@@ -24,4 +24,9 @@ class UnitKerja extends Model
     {
         return $this->hasMany('App\Models\PejabatUnit', 'kode_unit_kerja', 'kode');
     }
+
+    public function mapSubKegiatan()
+    {
+        return $this->hasMany('App\Models\MapSubKegiatan', 'kodeUnitKerja', 'kode');
+    }
 }

@@ -103,6 +103,7 @@
                   <li class="{{ Request::routeIs('admin.akun.*') == 1 ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.akun.index') }}">Akun</a></li>
                   <li class="{{ Request::routeIs('admin.map_akun.*') == 1 ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.map_akun.index') }}">Pemetaan Akun</a></li>
                   <li class="{{ Request::routeIs('admin.map_kegiatan.*') == 1 ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.map_kegiatan.index') }}">Pemetaan Kegiatan</a></li>
+                  <li class="{{ Request::routeIs('admin.mapSubKegiatan.*') == 1 ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.mapSubKegiatan.index') }}">Pemetaan Sub Kegiatan</a></li>
                   <li class="{{ Request::routeIs('admin.sumber_dana.*') == 1 ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.sumber_dana.index') }}">Sumber Dana</a></li>
                   <li class="{{ Request::routeIs('admin.ssh.*') == 1 ? 'active' : '' }}"><a class="nav-link" href="{{ route('admin.ssh.index') }}">Standard Barang</a></li>
                 </ul>
