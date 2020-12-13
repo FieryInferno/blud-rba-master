@@ -660,26 +660,26 @@
           })
 
           $.ajax({
-              url: "{{ route('admin.mapSubKegiatan.data') }}",
-              type: "POST",
-              data: "kode_unit_kerja="+$(this).val()+"&kode=rba",
-              success:function(response){
-                var dropdownKegiatan = $('#subKegiatan');
-                dropdownKegiatan.empty();
-                if (response.total_data > 0){
-                  $(dropdownKegiatan).append(`
-                    <option value="" selected>Pilih Sub Kegiatan</option>
-                  `);
-                  $(response.data).each(function () {
-                      $("<option />", {
-                        val: this.idMapSubKegiatan,
-                        text: this.sub_kegiatan_blud.namaSubKegiatan
-                      }).appendTo(dropdownKegiatan);
-                  });
-                }
-              }, error:function(jqXHR, exception){
-                console.log(jqXHR);
+            url: "{{ route('admin.mapSubKegiatan.data') }}",
+            type: "POST",
+            data: "kode_unit_kerja="+$(this).val()+"&kode=rba",
+            success:function(response){
+              var dropdownKegiatan = $('#subKegiatan');
+              dropdownKegiatan.empty();
+              if (response.total_data > 0){
+                $(dropdownKegiatan).append(`
+                  <option value="" selected>Pilih Sub Kegiatan</option>
+                `);
+                $(response.data).each(function () {
+                    $("<option />", {
+                      val: this.idMapSubKegiatan,
+                      text: this.sub_kegiatan_blud.namaSubKegiatan
+                    }).appendTo(dropdownKegiatan);
+                });
               }
+            }, error:function(jqXHR, exception){
+              console.log(jqXHR);
+            }
           })
         });
 
