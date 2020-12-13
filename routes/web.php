@@ -24,6 +24,7 @@ Route::prefix('ajax')->group(function () {
     Route::namespace('Admin')->group(function() {
         Route::post('pejabat-unit', 'PejabatUnitController@getData')->name('admin.pejabatunit.data');
         Route::post('map-kegiatan', 'MapKegiatanController@getData')->name('admin.mapkegiatan.data');
+        Route::post('mapSubKegiatan', 'MapSubKegiatanController@getData')->name('admin.mapSubKegiatan.data');
         Route::post('akun', 'AkunController@getDataParent')->name('admin.akun.parent');
         Route::post('akun-rka21', 'AkunController@getAkunRka21')->name('admin.akun.rka21');
         Route::get('sumber-dana', 'SumberDanaController@getData')->name('admin.sumberdana.data');

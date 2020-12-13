@@ -80,9 +80,6 @@
                           <label>Sub Kegiatan</label>
                           <select name="subKegiatan" id="subKegiatan" class="form-control">
                             <option value="" selected>Pilih Sub Kegiatan</option>
-                            @foreach ($mapSubKegiatan as $kegiatan)
-                              <option value="{{ $kegiatan->idMapSubKegiatan }}">{{ $kegiatan->subKegiatanApbd->namaSubKegiatan }}</option>
-                            @endforeach
                           </select>
                         </div>
                       </div>
@@ -323,17 +320,17 @@
 
       @if (auth()->user()->hasRole('Puskesmas'))
         $.ajax({
-          url: "{{ route('admin.mapkegiatan.data') }}",
+          url: "{{ route('admin.mapSubKegiatan.data') }}",
           type: "POST",
           data: "kode_unit_kerja="+$('#unit_kerja option:selected').val()+"&kode=rba",
           success:function(response){
-            var dropdownKegiatan = $('#kegiatan');
+            var dropdownKegiatan = $('#subKegiatan');
             dropdownKegiatan.empty();
             if (response.total_data > 0){
               $(response.data).each(function () {
                   $("<option />", {
-                      val: this.id,
-                      text: this.blud.nama_kegiatan
+                      val: this.idSubKegiatan,
+                      text: this.subKegiatanBlud.nama_kegiatan
                   }).appendTo(dropdownKegiatan);
               });
             }
@@ -663,17 +660,20 @@
           })
 
           $.ajax({
-              url: "{{ route('admin.mapkegiatan.data') }}",
+              url: "{{ route('admin.mapSubKegiatan.data') }}",
               type: "POST",
               data: "kode_unit_kerja="+$(this).val()+"&kode=rba",
               success:function(response){
-                var dropdownKegiatan = $('#kegiatan');
+                var dropdownKegiatan = $('#subKegiatan');
                 dropdownKegiatan.empty();
                 if (response.total_data > 0){
+                  $(dropdownKegiatan).append(`
+                    <option value="" selected>Pilih Sub Kegiatan</option>
+                  `);
                   $(response.data).each(function () {
                       $("<option />", {
-                          val: this.id,
-                          text: this.blud.nama_kegiatan
+                        val: this.idMapSubKegiatan,
+                        text: this.sub_kegiatan_blud.namaSubKegiatan
                       }).appendTo(dropdownKegiatan);
                   });
                 }
