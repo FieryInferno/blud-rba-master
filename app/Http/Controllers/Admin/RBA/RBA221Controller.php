@@ -208,7 +208,6 @@ class RBA221Controller extends Controller
     public function create()
     {
         $user               = $this->user->find(auth()->user()->id, ['*'], ['role', 'unitKerja']);
-        $pemetaanKegiatan   = $this->pemetaanKegiatan->get(['*'], null, ['apbd']);
 
         $whereAkun = function ($query){
             $query->where('tipe', 5);
@@ -231,7 +230,7 @@ class RBA221Controller extends Controller
         
         $unitKerja = $this->unitKerja->get(['*'], $whereUnitKerja);
 
-        return view('admin.rba.rba221.create', compact('unitKerja', 'akun', 'pemetaanKegiatan'));
+        return view('admin.rba.rba221.create', compact('unitKerja', 'akun'));
     }
 
     /**

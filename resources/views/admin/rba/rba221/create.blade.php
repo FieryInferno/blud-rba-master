@@ -92,12 +92,6 @@
                           </div>
                       </div>
                     </div>
-                    @foreach ($pemetaanKegiatan as $map)
-                      <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="customCheck1">
-                        <label class="custom-control-label" for="customCheck1">{{ $map->apbd->nama_kegiatan }}</label>
-                      </div>
-                    @endforeach
                   </div>
                 </div>
                   <div class="card" style="min-height:400px">
