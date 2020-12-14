@@ -229,10 +229,11 @@ class AkunController extends Controller
             }
 
             $results = collect($requestData);
-            foreach ($data as $item) {
-                $explode = explode('.', $item);
-                $results = $results->merge($this->akun->getAkunParent($explode[0], $explode[1], $explode[2], $explode[3]));
-            }
+            // dd($results);die();
+            // foreach ($data as $item) {
+            //     $explode = explode('.', $item);
+            //     $results = $results->merge($this->akun->getAkunParent($explode[0], $explode[1], $explode[2], $explode[3]));
+            // }
 
             $unique = $results->unique('kode_akun');
             $results = $unique->sortBy('kode_akun')->values()->all();
