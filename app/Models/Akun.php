@@ -18,7 +18,7 @@ class Akun extends Model
         'nama_akun', 'kategori_id', 'pagu', 'realisasi', 'is_parent'
     ];
 
-     /**
+    /**
      * Relation to Kategori akun
      */
     public function kategori()

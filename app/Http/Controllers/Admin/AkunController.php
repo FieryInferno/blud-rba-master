@@ -10,6 +10,7 @@ use App\Repositories\DataDasar\AkunRepository;
 use App\Repositories\DataDasar\KategoriAkunRepository;
 use App\Repositories\RBA\RBARepository;
 use App\Repositories\RKA\RKARepository;
+use App\Models\Akun;
 
 class AkunController extends Controller
 {
@@ -444,6 +445,27 @@ class AkunController extends Controller
                 'status_code' => $e->getCode(),
                 'data' => $e->getMessage(),
             ], 400);
+        }
+    }
+
+    public function updateKodeAkun()
+    {
+        $akunLama   = $this->akun->get()->toArray();
+        $j  = 1;
+        for ($i=0; $i < count($akunLama); $i++) { 
+            $key        = $akunLama[$i];
+            $kodeAkun   = $key['tipe'];
+            if ($key['kelompok']) $kodeAkun .= '.' . $key['kelompok'];
+            if ($key['jenis']) $kodeAkun    .= '.' . $key['jenis']; 
+            if ($key['objek']) $kodeAkun    .= '.' . $key['objek'];
+            if ($key['rincian']) $kodeAkun  .= '.' . $key['rincian'];
+            if ($key['sub1']) $kodeAkun     .= '.' . $key['sub1'];
+            if ($key['sub2']) $kodeAkun     .= '.' . $key['sub2'];
+            if ($key['sub3']) $kodeAkun     .= '.' . $key['sub3'];
+            $akunBaru                       = Akun::find($j);
+            $akunBaru->kode_akun            = $kodeAkun;
+            $akunBaru->save();
+            $j++;
         }
     }
 }

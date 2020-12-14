@@ -155,6 +155,7 @@ Route::prefix('blud')->namespace('Admin')->middleware('auth')->group(function ()
         Route::post('akun/buat', 'AkunController@store')->name('admin.akun.store');
         Route::put('akun/edit', 'AkunController@update')->name('admin.akun.update');
         Route::delete('akun/hapus', 'AkunController@destroy')->name('admin.akun.destroy');
+        Route::get('akun/updateKodeAkun', 'AkunController@updateKodeAkun')->name('admin.akun.updateKodeAkun');
 
         // pemetaan akun
         Route::get('pemetaan-akun', 'MapAkunController@index')->name('admin.map_akun.index');
