@@ -72,8 +72,9 @@ class PejabatUnitController extends Controller
      */
     public function index()
     {
-        $unitKerja = $this->unitKerja->get(['*'], null, ['pejabat']);
-        $jabatan = $this->jabatan->get();
+        $unitKerja  = $this->unitKerja->get(['*'], null, ['pejabat']);
+        // dd($unitKerja);
+        $jabatan    = $this->jabatan->get();
         return view('admin.pejabat_unit.index', compact('jabatan', 'unitKerja'));
     }
 

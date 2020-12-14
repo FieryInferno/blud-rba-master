@@ -66,7 +66,7 @@
                                         <td>{{ $item->nama_pejabat }}</td>
                                         <td>{{ $item->nip }}</td>
                                         <td>{{ $item->jabatan->nama_jabatan }}</td>
-                                        <td>{{ $item->unit->nama_unit }}</td>
+                                        <td>{{ $item->nama_unit }}</td>
                                         <td>{{ $item->status }}</td>
                                         @if (Auth::user()->hasRole('admin'))
                                         <td>
