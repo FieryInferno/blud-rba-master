@@ -128,7 +128,8 @@ class RKA221Controller extends Controller
             }
 
         };
-        $rka = $this->rka->get(['*'], $whereRka, ['mapKegiatan.blud']);
+        // $rka = $this->rka->get(['*'], $whereRka, ['mapKegiatan.blud']);
+        $rka = $this->rka->get(['*'], $whereRka, ['mapSubKegiatan.subKegiatanBlud']);
         $rka->sum(function ($rka){
             $rka->total_nominal_murni = $rka->rincianSumberDana->sum('nominal');
             $rka->total_nominal_pak = $rka->rincianSumberDana->sum('nominal_pak');
@@ -207,7 +208,7 @@ class RKA221Controller extends Controller
      */
     public function store(RKA221Request $request)
     {
-         try {
+        try {
             DB::beginTransaction();
             $rka = $this->rka->create([
                 'kode_rka' => Rka::KODE_RKA_221,
@@ -215,7 +216,7 @@ class RKA221Controller extends Controller
                 'kode_unit_kerja' => $request->unit_kerja,
                 'pejabat_id' => $request->pejabat_unit,
                 'kelompok_sasaran' => $request->sasaran_kegiatan,
-                'map_kegiatan_id' => $request->kegiatan,
+                'map_kegiatan_id' => $request->subKegiatan,
                 'created_by' => auth()->user()->id,
                 'updated_by' => auth()->user()->id,
                 'status_anggaran_id' => auth()->user()->statusAnggaran->id,

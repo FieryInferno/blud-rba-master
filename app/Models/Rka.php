@@ -99,4 +99,9 @@ class Rka extends Model
     {
         return $this->belongsTo(StatusAnggaran::class);
     }
+
+    public function mapSubKegiatan()
+    {
+        return $this->belongsTo('App\Models\MapSubKegiatan', 'map_kegiatan_id', 'idMapSubKegiatan');
+    }
 }

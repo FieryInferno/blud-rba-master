@@ -80,11 +80,11 @@
                                     <td>{{ $item->kode_unit_kerja }}</td>
                                     <td>{{ $item->unitKerja->nama_unit }}</td>
                                     <td>{{ format_idr($item->total_nominal_murni) }}</td>
-                                     @if (auth()->user()->statusAnggaran->status_perubahan == 'PERUBAHAN')
+                                    @if (auth()->user()->statusAnggaran->status_perubahan == 'PERUBAHAN')
                                       <td>{{ format_idr($item->total_nominal_pak) }}</td>
                                       <td>{{ format_idr(abs($item->total_nominal_pak - $item->total_nominal_murni)) }}</td>
                                     @endif
-                                    <td>{{ $item->mapKegiatan->blud->nama_kegiatan }}</td>
+                                    <td>{{ $item->mapSubKegiatan->subKegiatanBlud->namaSubKegiatan }}</td>
                                     <td>{{ $item->created_at->diffForHumans() }}</td>
                                     <td>
                                       @if (auth()->user()->statusAnggaran->status_perubahan == 'MURNI')

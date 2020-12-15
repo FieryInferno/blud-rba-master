@@ -261,6 +261,9 @@
           var dropdownPejabat = $('#pejabat_unit_kerja');
           dropdownPejabat.empty();
           if (response.total_data > 0){
+            $(dropdownPejabat).append(`
+              <option value="" selected>Pilih Pejabat</option>
+            `);
             $(response.data).each(function () {
                 $("<option />", {
                     val: this.id,
@@ -302,9 +305,9 @@
       var rekeningSSH = [];
 
       $('.table-rekening').DataTable({
-          paging: false,
+          // paging: false,
           info: false,
-          ordering: false,
+          // ordering: false,
         });
 
       const parents = [];
@@ -332,12 +335,12 @@
 
       var sumberDanaRba = [];
       $.get("{{ route('admin.sumberdana.data') }}", function (response, status) {
-         response.data.forEach(function (item) {
-           sumberDanaRba.push({
-             id : item.id,
-             nama_sumber_dana : item.nama_sumber_dana
-           })
-         });
+        response.data.forEach(function (item) {
+          sumberDanaRba.push({
+            id : item.id,
+            nama_sumber_dana : item.nama_sumber_dana
+          })
+        });
       });
 
       $('#form-rba').on('submit', function (e) {
@@ -597,6 +600,9 @@
               var dropdownPejabat = $('#pejabat_unit_kerja');
               dropdownPejabat.empty();
               if (response.total_data > 0){
+                $(dropdownPejabat).append(`
+                  <option value="" selected>Pilih Pejabat</option>
+                `);
                 $(response.data).each(function () {
                     $("<option />", {
                         val: this.id,

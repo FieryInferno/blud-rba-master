@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ChangeForeignSshIdInRkaTable extends Migration
+class UbahForeignKeyMapKegiatanIDRka extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class ChangeForeignSshIdInRkaTable extends Migration
      */
     public function up()
     {
-        Schema::table('rka_rincian_anggaran', function (Blueprint $table) {
-            $table->dropForeign(['ssh_id']);
-            $table->foreign('ssh_id')->references('id')->on('ssh')->onDelete('set null');
+        Schema::table('rka', function (Blueprint $table) {
+            $table->dropForeign(['map_kegiatan_id']);
+            $table->foreign('map_kegiatan_id')->references('idMapSubKegiatan')->on('mapSubKegiatan');
         });
     }
 
@@ -26,7 +26,7 @@ class ChangeForeignSshIdInRkaTable extends Migration
      */
     public function down()
     {
-        Schema::table('rka_rincian_anggaran', function (Blueprint $table) {
+        Schema::table('rka', function (Blueprint $table) {
             //
         });
     }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddSub4ColumnInSshTable extends Migration
+class UbahForeignKeyMapKegiatanIDRka extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddSub4ColumnInSshTable extends Migration
      */
     public function up()
     {
-        Schema::table('ssh', function (Blueprint $table) {
-            $table->string('sub4')->after('sub3')->nullable();
+        Schema::table('rka', function (Blueprint $table) {
+            $table->dropForeign(['map_kegiatan_id']);
+            $table->foreign('map_kegiatan_id')->references('idMapSubKegiatan')->on('mapSubKegiatan')->onDelete('SET NULL');
         });
     }
 
@@ -25,8 +26,8 @@ class AddSub4ColumnInSshTable extends Migration
      */
     public function down()
     {
-        Schema::table('ssh', function (Blueprint $table) {
-            $table->dropColumn('sub4');
+        Schema::table('rka', function (Blueprint $table) {
+            //
         });
     }
 }
