@@ -274,10 +274,10 @@
       })
 
       @if (auth()->user()->hasRole('Puskesmas'))
-        $.ajax({
+      $.ajax({
           url: "{{ route('admin.mapSubKegiatan.data') }}",
           type: "POST",
-          data: "kode_unit_kerja="+$(this).val()+"&kode=rba",
+          data: "kode_unit_kerja={{ auth()->user()->kode_unit_kerja }}&kode=rba",
           success:function(response){
             var dropdownKegiatan = $('#subKegiatan');
             dropdownKegiatan.empty();
@@ -286,10 +286,10 @@
                 <option value="" selected>Pilih Sub Kegiatan</option>
               `);
               $(response.data).each(function () {
-                  $("<option />", {
-                    val: this.idMapSubKegiatan,
-                    text: this.sub_kegiatan_blud.namaSubKegiatan
-                  }).appendTo(dropdownKegiatan);
+                $("<option />", {
+                  val: this.idMapSubKegiatan,
+                  text: this.sub_kegiatan_blud.namaSubKegiatan
+                }).appendTo(dropdownKegiatan);
               });
             }
           }, error:function(jqXHR, exception){
