@@ -142,7 +142,7 @@ class RBA221Controller extends Controller
         $this->bkuRincian           = $bkuRincian;
         $this->pemetaanKegiatan     = $pemetaanKegiatan;
         $this->mapSubKegiatan       = $mapSubKegiatan;
-        $this->middleware('permission:buat RBA')->only('create');
+        // $this->middleware('permission:buat RBA')->only('create');
     }
 
     /**
