@@ -322,8 +322,8 @@
             if (response.total_data > 0){
               $(response.data).each(function () {
                   $("<option />", {
-                      val: this.idSubKegiatan,
-                      text: this.subKegiatanBlud.nama_kegiatan
+                    val: this.idMapSubKegiatan,
+                    text: this.sub_kegiatan_blud.namaSubKegiatan
                   }).appendTo(dropdownKegiatan);
               });
             }
