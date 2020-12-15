@@ -65,8 +65,16 @@
       <div class="main-sidebar">
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
-            <a href="{{ route('admin.index') }}">{{ config('app.name') }}</a>
-            <small><strong>{{ auth()->user()->statusAnggaran->status_anggaran }}</strong></small>
+            <div class="row">
+              <div class="col-12">
+                <a href="{{ route('admin.index') }}">{{ config('app.name') }}</a>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <small><strong>{{ auth()->user()->statusAnggaran->status_anggaran }}</strong></small>
+              </div>
+            </div>
           </div>
           <div class="sidebar-brand sidebar-brand-sm">
             <a href="{{ route('admin.index') }}">BLUD</a>
