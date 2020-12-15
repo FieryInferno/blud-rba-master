@@ -163,12 +163,18 @@ class RKA221Controller extends Controller
         $mapSubKegiatan = $this->mapSubKegiatan->get();
 
         $whereAkun = function ($query) {
-            $query->where('tipe', 5)
-                ->whereNull('kelompok')
-                ->orWhere(function ($q) {
-                    $q->where('tipe', 5)
-                        ->where('kelompok', 2);
-                });
+            // $query->where('tipe', 5)
+            //     ->whereNull('kelompok')
+            //     ->orWhere(function ($q) {
+            //         $q->where('tipe', 5)
+            //             ->where('kelompok', 2);
+            //     });
+            $query->where('tipe', 5);
+                // ->whereNull('kelompok')
+                // ->orWhere(function ($q) {
+                //     $q->where('tipe', 5)
+                //         ->where('kelompok', 2)
+                // });
         };
         $akun = $this->akun->get(['*'], $whereAkun)->sortBy('kode_akun');
 
