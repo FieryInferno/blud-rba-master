@@ -66,12 +66,12 @@
         <aside id="sidebar-wrapper">
           <div class="sidebar-brand">
             <div class="row">
-              <div class="col-12">
+              <div class="col-12" style="height:20px;">
                 <a href="{{ route('admin.index') }}">{{ config('app.name') }}</a>
               </div>
             </div>
             <div class="row">
-              <div class="col-12">
+              <div class="col-12" style="height:20px;">
                 <small><strong>{{ auth()->user()->statusAnggaran->status_anggaran }}</strong></small>
               </div>
             </div>
