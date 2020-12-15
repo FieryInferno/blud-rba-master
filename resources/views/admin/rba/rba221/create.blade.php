@@ -110,13 +110,13 @@
                           </a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" id="sumber-dana-tab" data-toggle="tab" href="#sumber_dana" role="tab" aria-controls="sumber-dana" aria-selected="false">
-                            Sumber Dana
+                          <a class="nav-link" id="rkaTab" data-toggle="tab" href="#rka" role="tab" aria-controls="rka" aria-selected="false">
+                            RKA APBD
                           </a>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" id="rkaTab" data-toggle="tab" href="#rka" role="tab" aria-controls="rka" aria-selected="false">
-                            RKA APBD
+                          <a class="nav-link" id="sumber-dana-tab" data-toggle="tab" href="#sumber_dana" role="tab" aria-controls="sumber-dana" aria-selected="false">
+                            Sumber Dana
                           </a>
                         </li>
                       </ul>
