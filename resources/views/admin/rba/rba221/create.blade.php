@@ -320,11 +320,14 @@
             var dropdownKegiatan = $('#subKegiatan');
             dropdownKegiatan.empty();
             if (response.total_data > 0){
+              $(dropdownKegiatan).append(`
+                <option value="" selected>Pilih Sub Kegiatan</option>
+              `);
               $(response.data).each(function () {
-                  $("<option />", {
-                    val: this.idMapSubKegiatan,
-                    text: this.sub_kegiatan_blud.namaSubKegiatan
-                  }).appendTo(dropdownKegiatan);
+                $("<option />", {
+                  val: this.idMapSubKegiatan,
+                  text: this.sub_kegiatan_blud.namaSubKegiatan
+                }).appendTo(dropdownKegiatan);
               });
             }
           }, error:function(jqXHR, exception){
