@@ -67,7 +67,7 @@ class RBA31Controller extends Controller
      */
     private $user;
 
-     /**
+    /**
      * Construct.
      */
     public function __construct(
@@ -97,10 +97,9 @@ class RBA31Controller extends Controller
      */
     public function index(Request $request)
     {
-        $user = $this->user->find(auth()->user()->id, ['*'], ['role', 'unitKerja']);
-        $unitKerja = $this->unitKerja->get();
-
-        $whereRba = function ($query) use ($user, $request) {
+        $user       = $this->user->find(auth()->user()->id, ['*'], ['role', 'unitKerja']);
+        $unitKerja  = $this->unitKerja->get();
+        $whereRba   = function ($query) use ($user, $request) {
             $query->where('kode_rba', Rba::KODE_RBA_31);
             $query->where('status_anggaran_id', auth()->user()->statusAnggaran->id);
 
@@ -191,14 +190,14 @@ class RBA31Controller extends Controller
         try {
             DB::beginTransaction();
             $rba = $this->rba->create([
-                'kode_rba' => Rba::KODE_RBA_31,
-                'kode_opd' => $request->kode_opd,
-                'kode_unit_kerja' => $request->unit_kerja,
-                'pejabat_id' => $request->pejabat_unit,
-                'latar_belakang' => $request->latar_belakang,
-                'created_by' => auth()->user()->id,
-                'updated_by' => auth()->user()->id,
-                'status_anggaran_id', auth()->user()->statusAnggaran->id
+                'kode_rba'              => Rba::KODE_RBA_31,
+                'kode_opd'              => $request->kode_opd,
+                'kode_unit_kerja'       => $request->unit_kerja,
+                'pejabat_id'            => $request->pejabat_unit,
+                'latar_belakang'        => $request->latar_belakang,
+                'created_by'            => auth()->user()->id,
+                'updated_by'            => auth()->user()->id,
+                'status_anggaran_id'    =>auth()->user()->statusAnggaran->id
             ]);
 
             if (!$rba)
@@ -216,16 +215,16 @@ class RBA31Controller extends Controller
                     'tahun_berikutnya' => $request->jumlah_tahun[$key], 
                     'keterangan' => $request->keterangan[$key]
                 ]);
-                 if (!$rbaRincianAnggaran)
+                if (!$rbaRincianAnggaran)
                     throw new \Exception('create rba rincian anggaran error');
             }
             foreach ($request->sumber_dana as $key => $data) {
                 $akun = $this->rba->getAkunId($request->kode_rekening_sumber_dana[$key]);
                 $rbaRincianSumberDana = $this->rincianSumberDana->create([
-                     'rba_id' => $rba->id, 
-                     'akun_id' => $akun->id, 
-                     'sumber_dana_id' => $request->sumber_dana[$key], 
-                     'nominal' => parse_format_number($request->nominal[$key]),
+                    'rba_id' => $rba->id, 
+                    'akun_id' => $akun->id, 
+                    'sumber_dana_id' => $request->sumber_dana[$key], 
+                    'nominal' => parse_format_number($request->nominal[$key]),
                 ]);
 
                 if (!$rbaRincianSumberDana)
