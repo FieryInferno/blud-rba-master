@@ -98,8 +98,8 @@ class KegiatanController extends Controller
     public function destroy(Request $request)
     {
         $kegiatan       = $this->kegiatan->find($request->id);
-        $mapKegiatan    = MapKegiatan::where('kode_kegiatan_blud', $kegiatan->id)
-            ->orWhere('kode_kegiatan_apbd', $kegiatan->id)->first();
+        $mapKegiatan    = MapKegiatan::where('kegiatan_id_blud', $kegiatan->id)
+            ->orWhere('kegiatan_id_apbd', $kegiatan->id)->first();
 
         if ($mapKegiatan){
             return redirect()->back()
