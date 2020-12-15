@@ -93,7 +93,7 @@ class RKA221Controller extends Controller
         $this->indikatorKerja       = $indikatorKerja;
         $this->mapSubKegiatan       = $mapSubKegiatan;
 
-        $this->middleware('permission:buat RKA')->only('create');
+        // $this->middleware('permission:buat RKA')->only('create');
     }
 
     /**
