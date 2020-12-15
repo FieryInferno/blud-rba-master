@@ -88,7 +88,7 @@ class RBA1Controller extends Controller
         $this->rincianSumberDana = $rincianSumberDana;
         $this->user = $user;
 
-        $this->middleware('permission:buat RBA')->only('create');
+        // $this->middleware('permission:buat RBA')->only('create');
     }
 
     /**

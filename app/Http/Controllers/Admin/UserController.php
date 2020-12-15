@@ -78,13 +78,14 @@ class UserController extends Controller
         ]);
 
         $user = $this->user->create([
-            'name' => $request->nama,
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'kode_unit_kerja' => $request->unit_kerja,
-            'role_id' => $request->role,
-            'status' => 'MURNI'
+            'name'                  => $request->nama,
+            'username'              => $request->username,
+            'email'                 => $request->email,
+            'password'              => Hash::make($request->password),
+            'kode_unit_kerja'       => $request->unit_kerja,
+            'role_id'               => $request->role,
+            'status'                => 'MURNI',
+            'status_anggaran_id'    => 1
         ]);
 
         return redirect()->route('admin.users.index')
