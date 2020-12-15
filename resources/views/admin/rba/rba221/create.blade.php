@@ -24,7 +24,6 @@
                   </div>
                 </div>
               @endif
-            
               <div class="col-12 col-md-12 col-lg-12">
                 <div class="card">
                   <div class="card-header">
@@ -316,7 +315,7 @@
         $.ajax({
           url: "{{ route('admin.mapSubKegiatan.data') }}",
           type: "POST",
-          data: "kode_unit_kerja="+$('#unit_kerja option:selected').val()+"&kode=rba",
+          data: "kode_unit_kerja={{ auth()->user()->kode_unit_kerja }}&kode=rba",
           success:function(response){
             var dropdownKegiatan = $('#subKegiatan');
             dropdownKegiatan.empty();
