@@ -46,17 +46,20 @@ class AkunRepository extends Repository
         return Akun::with('ssh')
                     ->select(['id', 'kode_akun', 'nama_akun', 'is_parent'])
                     ->where('tipe', $tipe)
-                    ->whereNull('kelompok')
+                    // ->whereNull('kelompok')
+                    ->where('kelompok', '')
                     ->orWhere(function ($query) use ($tipe, $kelompok) {
                         $query->where('tipe', $tipe)
                                 ->where('kelompok', $kelompok)
-                                ->whereNull('jenis');
+                                // ->whereNull('jenis');
+                                ->where('jenis', '');
                     })
                     ->orWhere(function ($query) use ($tipe, $kelompok, $jenis) {
                         $query->where('tipe', $tipe)
                                 ->where('kelompok', $kelompok)
                                 ->where('jenis', $jenis)
-                                ->whereNull('objek');
+                                // ->whereNull('objek');
+                                ->where('objek', '');
                     })
                     ->orWhere(function ($query) use ($tipe, $kelompok, $jenis, $object) {
                         $query->where('tipe', $tipe)
@@ -64,7 +67,7 @@ class AkunRepository extends Repository
                                 ->where('jenis', $jenis)
                                 ->where('objek', $object);
                     })
-                    ->where('is_parent', true)
+                    ->where('is_parent', '1')
                     ->get();
     }
 }

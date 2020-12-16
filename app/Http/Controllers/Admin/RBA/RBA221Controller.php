@@ -406,7 +406,7 @@ class RBA221Controller extends Controller
         // get unique kode akun 
         $dataKode = [];
         foreach ($allKodeAkunRba as $item) {
-            $kode = substr($item, 0, 8);
+            $kode = substr($item, 0, 13);
             if (! in_array($kode, $dataKode)) {
                 $dataKode[] = $kode;
             }
