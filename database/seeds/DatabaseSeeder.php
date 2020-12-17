@@ -15,17 +15,18 @@ class DatabaseSeeder extends Seeder
             // UnitKerjaSeeder::class,
             // RolesTableSeeder::class,
             // UsersTableSeeder::class,
-            FungsiTableSeeder::class,
-            UrusanTableSeeder::class,
-            BidangTableSeeder::class,
-            JabatanTableSeeder::class,
+            // FungsiTableSeeder::class,
+            // UrusanTableSeeder::class,
+            // BidangTableSeeder::class,
+            // JabatanTableSeeder::class,
             // KategoriAkunSeeder::class,
-            JabatanPejabatUnitTableSeeder::class,
+            // JabatanPejabatUnitTableSeeder::class,
             // AkunTableSeeder::class,
-            SumberDanaTableSeeder::class,
-            PejabatUnitTableSeeder::class,
-            ProgramTableSeeder::class,
+            // SumberDanaTableSeeder::class,
+            // PejabatUnitTableSeeder::class,
+            // ProgramTableSeeder::class,
             // KegiatanTableSeeder::class,
+            PermissionsTableSeeder::class
         ]);
     }
 }

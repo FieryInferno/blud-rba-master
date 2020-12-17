@@ -332,7 +332,7 @@
                     data-nama-rekening="{{ $item->nama_akun }}">
                       <td>
                         @if (!$item->is_parent)
-                          <input type="checkbox" name="rekening" value="{{ $item->id }}" 
+                          <input type="checkbox" name="rekening" onchange="ubahRekening(this)" value="{{ $item->id }}" 
                           {{ in_array($item->kode_akun, $allKodeAkunRba) ? 'checked' : '' }}>
                         @endif
                       </td>
@@ -345,7 +345,7 @@
         </div>
         <div class="modal-footer bg-whitesmoke br">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-          <button type="button" class="btn btn-primary" id="get-rekening">Simpan</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Simpan</button>
         </div>
       </form>
     </div>
@@ -356,6 +356,50 @@
 @section('js')
   <script src="{{ asset('dashboard/js/datatable-1.10.20.min.js') }}"></script>
   <script>
+    const tableRBA = $('.table-rba').DataTable({
+      createdRow: function( row, data, dataIndex ) {
+        if ($(row).find('button').hasClass('is-parent')) {
+          $('.table-rekening input:checked').each(function (item) {
+            let kode = $(this).closest('tr').attr('data-kode-rekening');
+          });
+          $(row).addClass('table-primary');
+        }
+        $(row).addClass('text-dark');
+      },
+      // scrollY: "600px",
+      scrollX: true,
+      scrollCollapse: true,
+      paging: false,
+      info: false,
+      bFilter: false,
+      ordering: false,
+      columns:[
+        {data: ''},
+        {data: 'Kode Rekening'},
+        {data: 'Uraian'},
+        {data: 'Volume'},
+        {data: 'Satuan'},
+        {data: 'Tarif'},
+        {data: 'Jumlah'},
+        {data: 'Realisasi'},
+        {data: 'Jumlah Tahun Berikutnya'},
+        {data: 'Keterangan'}
+      ],
+      columnDefs: [
+          { width: 120, targets: 1 },
+          { width: 400, targets: 2 },
+          { width: 150, targets: 3 },
+          { width: 150, targets: 4 },
+          { width: 150, targets: 5 },
+          { width: 150, targets: 6 },
+          { width: 100, targets: 7 },
+          { width: 200, targets: 8 },
+          { width: 300, targets: 9 },
+      ],
+      fixedColumns: true,
+      display : true
+    });
+
     $(document).ready(function () {
       initMaskMoney();
       getKegiatan('{{ $rba->kode_unit_kerja }}', '{{ $rba->pejabat_id }}');
@@ -394,11 +438,11 @@
       })
 
       $('.table-rekening').DataTable({
-          paging: false,
-          info: false,
-          ordering: false,
-          bFilter: false
-        });
+        // paging: false,
+        info      : false,
+        ordering  : false,
+        // bFilter: false
+      });
 
       const parents = [];
       $.ajax({
@@ -425,17 +469,17 @@
 
       var sumberDanaRba = [];
       $.get("{{ route('admin.sumberdana.data') }}", function (response, status) {
-         response.data.forEach(function (item) {
-           sumberDanaRba.push({
-             id : item.id,
-             nama_sumber_dana : item.nama_sumber_dana
-           })
-         });
+        response.data.forEach(function (item) {
+          sumberDanaRba.push({
+            id : item.id,
+            nama_sumber_dana : item.nama_sumber_dana
+          })
+        });
       });
 
       $('#form-rba').on('submit', function (e) {
         e.preventDefault();
-       var formData = $(this).serialize();
+        var formData = $(this).serialize();
         $.ajax({
           type: "PUT",
           url: "{{ route('admin.rba2.update', $rba->id) }}",
@@ -467,52 +511,6 @@
             });
           }
         })
-      });
-
-      const tableRBA = $('.table-rba').DataTable({
-        createdRow: function( row, data, dataIndex ) {
-            if ($(row).find('button').hasClass('is-parent')) {
-              $('.table-rekening input:checked').each(function (item) {
-                let kode = $(this).closest('tr').attr('data-kode-rekening');
-              });
-
-              $(row).addClass('table-primary');
-            }
-
-          $(row).addClass('text-dark');
-        },
-        // scrollY: "600px",
-        scrollX: true,
-        scrollCollapse: true,
-        paging: false,
-        info: false,
-        bFilter: false,
-        ordering: false,
-        columns:[
-          {data: ''},
-          {data: 'Kode Rekening'},
-          {data: 'Uraian'},
-          {data: 'Volume'},
-          {data: 'Satuan'},
-          {data: 'Tarif'},
-          {data: 'Jumlah'},
-          {data: 'Realisasi'},
-          {data: 'Jumlah Tahun Berikutnya'},
-          {data: 'Keterangan'}
-        ],
-         columnDefs: [
-              { width: 120, targets: 1 },
-              { width: 400, targets: 2 },
-              { width: 150, targets: 3 },
-              { width: 150, targets: 4 },
-              { width: 150, targets: 5 },
-              { width: 150, targets: 6 },
-              { width: 100, targets: 7 },
-              { width: 200, targets: 8 },
-              { width: 300, targets: 9 },
-          ],
-          fixedColumns: true,
-          display : true
       });
 
       // event get rekening
@@ -898,6 +896,96 @@
               console.log(jqXHR);
             }
       })
+    }
+
+    function ubahRekening(e) {
+      var checked   = e.checked;
+      var idAkun    = $(e).closest('tr').attr('data-id');
+      if (checked) {
+        let rekening  = [];
+        rekeningSSH   = [];
+        rekening.push({
+          id        : parseInt($(e).closest('tr').attr('data-id')),
+          kode_akun : $(e).closest('tr').attr('data-kode-rekening'),
+          nama_akun : $(e).closest('tr').attr('data-nama-rekening'),
+          is_parent : 0
+        });
+        // tableRBA.clear().draw();
+        let data  = [];
+        kodes     = rekening.map(function (item) {
+          return item.kode_akun;
+        });
+        $.ajax({
+            type        : "POST",
+            url         : "{{ route('admin.akun.5.rba') }}",
+            data        : { rekening: rekening },
+            dataType    : "json",
+            beforeSend  :function() {
+              $("#get-rekening").prop('disabled', true);
+            },
+            success : function(response) {
+              rekeningSSH = [...response.data.akun];
+              response.data.akun.forEach(function (item) {
+                if (item.is_parent == 0){
+                  data.push(...[
+                    {
+                      '': '<button type="button" class="btn btn-add btn-sm btn-primary is-parent parent-item ' + item.id + '"><i class="fas fa-plus"></i></button>',
+                      'Kode Rekening': item.kode_akun,
+                      'Uraian': item.nama_akun,
+                      'Volume': '',
+                      'Satuan': '',
+                      'Tarif': '',
+                      'Jumlah': '',
+                      'Realisasi': '',
+                      'Jumlah Tahun Berikutnya': '',
+                      'Keterangan': '',
+                    },
+                    {
+                      '': '<button type="button" class="btn btn-remove btn-sm btn-danger ' + item.id + '"><i class="fas fa-minus"></i></button>',
+                      'Kode Rekening': `<input type="text" name="kode_rekening[]" class="form-control" value="${item.kode_akun}" readonly>`,
+                      'Uraian': `<select class="form-control select_ssh" name="uraian[]">
+                                  <option value="" readonly selected>-- Pilih Item --</option>
+                                  ${item.ssh.map(function (itemSSH) {
+                                      return "<option value='"+itemSSH.id+"' data-harga='"+itemSSH.harga+"' data-satuan='"+itemSSH.satuan+"'>"+itemSSH.nama_barang+"</option>";
+                                  }).join('')}
+                                </select>`,
+                      'Volume': '<input type="text" name="volume[]" class="form-control" onkeyup="typingVolume(event)" value="0">',
+                      'Satuan': '<input type="text" name="satuan[]" class="form-control">',
+                      'Tarif': '<input type="text" name="tarif[]" class="form-control money" onkeyup="typingTarif(event)" value="0">',
+                      'Jumlah': '<input type="text" name="jumlah[]" class="form-control" readonly>',
+                      'Realisasi': '<input type="text" name="realisasi[]" class="form-control" readonly>',
+                      'Jumlah Tahun Berikutnya': '<input type="text" name="jumlah_tahun[]" class="form-control" readonly>',
+                      'Keterangan': '<input type="text" name="keterangan[]" class="form-control">',
+                    }
+                  ]);
+                }else {
+                  data.push(
+                    {
+                      '': '<button type="button" class="btn btn-add btn-sm btn-primary is-parent d-none"><i class="fas fa-plus"></i></button>',
+                      'Kode Rekening': item.kode_akun,
+                      'Uraian': item.nama_akun,
+                      'Volume': '',
+                      'Satuan': '',
+                      'Tarif': '',
+                      'Jumlah': '',
+                      'Realisasi': '',
+                      'Jumlah Tahun Berikutnya': '',
+                      'Keterangan': '',
+                    });
+                }
+
+            });
+            tableRBA.rows.add(data).draw('false');
+            initMaskMoney();
+          }
+        });
+      } else {
+        var tr  = $('.' + idAkun).closest('tr');
+        for (let i = 0; i < tr.length; i++) {
+          const element = tr[i];
+          tableRBA.rows(element._DT_RowIndex).remove().draw();
+        }
+      }
     }
 
   </script>

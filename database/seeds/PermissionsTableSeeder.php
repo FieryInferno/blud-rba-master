@@ -17,7 +17,6 @@ class PermissionsTableSeeder extends Seeder
         Permission::create(['permission_name' => 'buat RBA']);
         Permission::create(['permission_name' => 'edit RBA']);
         Permission::create(['permission_name' => 'hapus RBA']);
-
         Permission::create(['permission_name' => 'lihat RKA']);
         Permission::create(['permission_name' => 'buat RKA']);
         Permission::create(['permission_name' => 'edit RKA']);
