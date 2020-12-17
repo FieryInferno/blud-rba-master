@@ -239,10 +239,8 @@
       <form action="{{ route('admin.akun.update') }}" method="POST">
         @csrf
         @method('PUT')
-
         <input type="hidden" id="edit-id" name="id">
-
-       <div class="modal-body">
+        <div class="modal-body">
           <div class="row">
               <div class="col-md-6">
                   <div class="form-group">
@@ -261,7 +259,7 @@
                     <label>Sub 2</label>
                     <input type="text" id="edit-sub2" name="sub2" class="form-control akun-edit" value="{{ old('sub2') }}" >
                   </div>
-                   <div class="form-group">
+                  <div class="form-group">
                     <label>Kode Akun</label>
                     <input type="text" id="edit-kode_akun" name="kode_akun" class="form-control"  required readonly>
                   </div>
@@ -274,7 +272,7 @@
                           @endforeach
                       </select>
                   </div>
-                   <div class="form-group">
+                  <div class="form-group">
                       <label>Status Akun / Rekening </label>
                       <div class="form-check"> 
                         <input class="form-check-input" type="checkbox" id="edit-parent" name="is_parent">
@@ -284,7 +282,7 @@
                   
               </div>
               <div class="col-md-6">
-                 <div class="form-group">
+                <div class="form-group">
                     <label>Objek</label>
                     <input type="text" id="edit-objek" name="objek" class="form-control akun-edit" value="{{ old('objek') }}" >
                   </div>
@@ -292,7 +290,7 @@
                     <label>Rincian</label>
                     <input type="text" id="edit-rincian" name="rincian" class="form-control akun-edit" value="{{ old('rincian') }}" >
                   </div>
-                   <div class="form-group">
+                  <div class="form-group">
                     <label>Sub 1</label>
                     <input type="text" id="edit-sub1" name="sub1" class="form-control akun-edit" value="{{ old('sub1') }}" >
                   </div>
@@ -304,11 +302,10 @@
                     <label>Nama Akun</label>
                     <input type="text" id="edit-nama_akun" name="nama_akun" class="form-control" value="{{ old('nama_akun') }}" required>
                   </div>
-                   <div class="form-group">
+                  <div class="form-group">
                       <label>Pagu</label>
                       <input type="text" id="edit-pagu" name="pagu" class="form-control money" value="{{ old('pagu') }}">
                   </div>
-                 
               </div>
           </div>
         </div>
@@ -383,11 +380,13 @@
 
 
     $('.akun-edit').keyup(function () {
-      const tipe = $('#editModal input[name ="tipe"]').val(); 
-      const kelompok = $('#editModal input[name ="kelompok"]').val(); 
-      const jenis = $('#editModal input[name ="jenis"]').val(); 
-      const objek = $('#editModal input[name ="objek"]').val(); 
-      const rincian = $('#editModal input[name ="rincian"]').val(); 
+      const tipe      = $('#editModal input[name ="tipe"]').val(); 
+      const kelompok  = $('#editModal input[name ="kelompok"]').val(); 
+      const jenis     = $('#editModal input[name ="jenis"]').val(); 
+      const objek     = $('#editModal input[name ="objek"]').val(); 
+      const rincian   = $('#editModal input[name ="rincian"]').val(); 
+      const sub1      = $('#editModal input[name ="sub1"]').val(); 
+      console.log(sub1);
       
       var concatData = '';
       if (tipe != ''){
@@ -407,7 +406,11 @@
       }
 
       if (rincian != ''){
-        concatData += '.'+rincian;
+        concatData  += '.' + rincian;
+      }
+
+      if (sub1 != ''){
+        concatData  += '.' + sub1;
       }
 
       $('input[name ="kode_akun"]').val(concatData); 
@@ -419,20 +422,20 @@
     );
 
     $('.btn-edit').click(function () {
-      const id = $(this).attr('data-id');
-      const tipe = $(this).attr('data-tipe');
-      const kelompok = $(this).attr('data-kelompok');
-      const objek = $(this).attr('data-objek');
-      const rincian = $(this).attr('data-rincian');
-      const jenis = $(this).attr('data-jenis');
-      const sub1 = $(this).attr('data-sub1');
-      const sub2 = $(this).attr('data-sub2');
-      const sub3 = $(this).attr('data-sub1');
+      const id        = $(this).attr('data-id');
+      const tipe      = $(this).attr('data-tipe');
+      const kelompok  = $(this).attr('data-kelompok');
+      const objek     = $(this).attr('data-objek');
+      const rincian   = $(this).attr('data-rincian');
+      const jenis     = $(this).attr('data-jenis');
+      const sub1      = $(this).attr('data-sub1');
+      const sub2      = $(this).attr('data-sub2');
+      const sub3      = $(this).attr('data-sub3');
       const kode_akun = $(this).attr('data-kode_akun');
       const nama_akun = $(this).attr('data-nama_akun');
-      const kategori = $(this).attr('data-kategori');
-      const pagu = $(this).attr('data-pagu')+'00';
-      const parent = $(this).attr('data-parent');
+      const kategori  = $(this).attr('data-kategori');
+      const pagu      = $(this).attr('data-pagu')+'00';
+      const parent    = $(this).attr('data-parent');
 
       $('#edit-id').val(id);
       $('#edit-tipe').val(tipe);
