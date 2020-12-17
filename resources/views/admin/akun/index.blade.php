@@ -98,7 +98,7 @@
                                       data-nama_akun="{{ $item->nama_akun }}"
                                       data-kategori="{{ $item->kategori_id }}"
                                       data-pagu="{{ format_idr($item->pagu) }}"
-                                      data-parent="{{ $item->is_parent }}">
+                                      data-parent="{{ $item->is_parent }}" onclick="editAkun(this)">
                                       <i class="fas fa-edit"></i> 
                                     </button>
                                     
@@ -376,7 +376,6 @@
       const objek     = $('#editModal input[name ="objek"]').val(); 
       const rincian   = $('#editModal input[name ="rincian"]').val(); 
       const sub1      = $('#editModal input[name ="sub1"]').val(); 
-      console.log(sub1);
       
       var concatData = '';
       if (tipe != ''){
@@ -411,39 +410,40 @@
       {'width':'380px','display':'inline-block'}
     );
 
-    $('.btn-edit').click(function () {
-      const id        = $(this).attr('data-id');
-      const tipe      = $(this).attr('data-tipe');
-      const kelompok  = $(this).attr('data-kelompok');
-      const objek     = $(this).attr('data-objek');
-      const rincian   = $(this).attr('data-rincian');
-      const jenis     = $(this).attr('data-jenis');
-      const sub1      = $(this).attr('data-sub1');
-      const sub2      = $(this).attr('data-sub2');
-      const sub3      = $(this).attr('data-sub3');
-      const kode_akun = $(this).attr('data-kode_akun');
-      const nama_akun = $(this).attr('data-nama_akun');
-      const kategori  = $(this).attr('data-kategori');
-      const pagu      = $(this).attr('data-pagu')+'00';
-      const parent    = $(this).attr('data-parent');
+    // $('.btn-edit').click(function () {
+    //   const id        = $(this).attr('data-id');
+    //   const tipe      = $(this).attr('data-tipe');
+    //   const kelompok  = $(this).attr('data-kelompok');
+    //   const objek     = $(this).attr('data-objek');
+    //   const rincian   = $(this).attr('data-rincian');
+    //   const jenis     = $(this).attr('data-jenis');
+    //   const sub1      = $(this).attr('data-sub1');
+    //   const sub2      = $(this).attr('data-sub2');
+    //   const sub3      = $(this).attr('data-sub3');
+    //   const kode_akun = $(this).attr('data-kode_akun');
+    //   const nama_akun = $(this).attr('data-nama_akun');
+    //   const kategori  = $(this).attr('data-kategori');
+    //   const pagu      = $(this).attr('data-pagu')+'00';
+    //   const parent    = $(this).attr('data-parent');
+    //   console.log(tipe);
 
-      $('#edit-id').val(id);
-      $('#edit-tipe').val(tipe);
-      $('#edit-kelompok').val(kelompok);
-      $('#edit-objek').val(objek);
-      $('#edit-rincian').val(rincian);
-      $('#edit-jenis').val(jenis);
-      $('#edit-sub1').val(sub1);
-      $('#edit-sub2').val(sub2);
-      $('#edit-sub3').val(sub3);
-      $('#edit-kode_akun').val(kode_akun);
-      $('#edit-nama_akun').val(nama_akun);
-      $(`#edit-kategori option[value="${kategori}"]`).attr('selected', true);
-      $('#edit-pagu').val(pagu);
-      if (parent == 1){
-        $('#edit-parent').attr('checked', true);
-      }
-    });
+    //   $('#edit-id').val(id);
+    //   $('#edit-tipe').val(tipe);
+    //   $('#edit-kelompok').val(kelompok);
+    //   $('#edit-objek').val(objek);
+    //   $('#edit-rincian').val(rincian);
+    //   $('#edit-jenis').val(jenis);
+    //   $('#edit-sub1').val(sub1);
+    //   $('#edit-sub2').val(sub2);
+    //   $('#edit-sub3').val(sub3);
+    //   $('#edit-kode_akun').val(kode_akun);
+    //   $('#edit-nama_akun').val(nama_akun);
+    //   $(`#edit-kategori option[value="${kategori}"]`).attr('selected', true);
+    //   $('#edit-pagu').val(pagu);
+    //   if (parent == 1){
+    //     $('#edit-parent').attr('checked', true);
+    //   }
+    // });
 
     $('.btn-delete').click(function () {
       if (confirm('Anda yakin akan menghapus data ini?')) {
@@ -477,5 +477,40 @@
       $('#editModal input[name ="pagu"]').val(''); 
     });
   });
+
+  function editAkun(e) {
+    const id        = $(e).attr('data-id');
+    const tipe      = $(e).attr('data-tipe');
+    const kelompok  = $(e).attr('data-kelompok');
+    const objek     = $(e).attr('data-objek');
+    const rincian   = $(e).attr('data-rincian');
+    const jenis     = $(e).attr('data-jenis');
+    const sub1      = $(e).attr('data-sub1');
+    const sub2      = $(e).attr('data-sub2');
+    const sub3      = $(e).attr('data-sub3');
+    const kode_akun = $(e).attr('data-kode_akun');
+    const nama_akun = $(e).attr('data-nama_akun');
+    const kategori  = $(e).attr('data-kategori');
+    const pagu      = $(e).attr('data-pagu')+'00';
+    const parent    = $(e).attr('data-parent');
+    console.log(tipe);
+
+    $('#edit-id').val(id);
+    $('#edit-tipe').val(tipe);
+    $('#edit-kelompok').val(kelompok);
+    $('#edit-objek').val(objek);
+    $('#edit-rincian').val(rincian);
+    $('#edit-jenis').val(jenis);
+    $('#edit-sub1').val(sub1);
+    $('#edit-sub2').val(sub2);
+    $('#edit-sub3').val(sub3);
+    $('#edit-kode_akun').val(kode_akun);
+    $('#edit-nama_akun').val(nama_akun);
+    $(`#edit-kategori option[value="${kategori}"]`).attr('selected', true);
+    $('#edit-pagu').val(pagu);
+    if (parent == 1){
+      $('#edit-parent').attr('checked', true);
+    }
+  }
 </script>
 @endsection
