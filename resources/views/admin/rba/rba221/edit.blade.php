@@ -155,10 +155,6 @@
                               <button class="btn btn-primary btn-sm mb-3" id="pilih-rekening" type="button" data-toggle="modal" data-target="#akunModal">
                                   <i class="fas fa-plus"></i> Pilih Rekening
                               </button>
-
-                              <?php
-                                    dump(strpos('5.2.02.07.01.0001', '5.1'));
-                                  ?>
                               <table class="table table-rba">
                                 <thead>
                                     <th></th>
@@ -183,7 +179,6 @@
                                         'jumlah'    => $a->volume * $a->tarif
                                       ]);
                                     }
-                                    dump($jumlah6);
                                   ?>
                                   @foreach ($akunRba221 as $item)
                                       @if ($item->is_parent == 1)
