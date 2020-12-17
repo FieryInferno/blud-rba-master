@@ -69,17 +69,7 @@
                                 <td>{{ $item->sub1 }}</td>
                                 <td>{{ $item->sub2 }}</td>
                                 <td>{{ $item->sub3 }}</td>
-                                <td>
-                                  @php
-                                    $kodeAkun = $item->tipe;
-                                    if ($item->kelompok) $kodeAkun  .= '.' . $item->kelompok;
-                                    if ($item->jenis) $kodeAkun     .= '.' . $item->jenis;
-                                    if ($item->objek) $kodeAkun     .= '.' . $item->objek;
-                                    if ($item->rincian) $kodeAkun   .= '.' . $item->rincian;
-                                    if ($item->sub1) $kodeAkun      .= '.' . $item->sub1;
-                                    echo $kodeAkun;
-                                  @endphp
-                                </td>
+                                <td>{{ $item->kode_akun }}</td>
                                 <td>{{ $item->nama_akun }}</td>
                                 <td>{{ $item->kategori->nama_akun }}</td>
                                 <td>
