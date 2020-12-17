@@ -169,6 +169,17 @@
                                     <th>Keterangan</th>
                                 </thead>
                                 <tbody>
+                                  <?php
+                                    $jumlah6 = [];
+                                    $no      = 0;
+                                    for ($i=0; $i < count($rba->rincianAnggaran); $i++) {
+                                      $a  = $rba->rincianAnggaran[$i];
+                                      array_push($jumlah6, [
+                                        'kodeAkun'  => $a->akun->kode_akun,
+                                        'jumlah'    => $a->volume * $a->tarif
+                                      ]);
+                                    }
+                                  ?>
                                   @foreach ($akunRba221 as $item)
                                       @if ($item->is_parent == 1)
                                         <tr>
@@ -178,7 +189,17 @@
                                           <td></td>
                                           <td></td>
                                           <td></td>
-                                          <td></td>
+                                          <td>
+                                            <?php
+                                              $jumlah = 0;
+                                              foreach ($jumlah6 as $j6) {
+                                                if (strpos($j6['kodeAkun'], $item->kode_akun) == 0) {
+                                                  $jumlah += $j6['jumlah'];
+                                                }
+                                              }
+                                            ?>
+                                            <input type="text" class="form-control money" readonly value="{{ $jumlah }}">
+                                          </td>
                                           <td></td>
                                           <td></td>
                                           <td></td>
@@ -191,7 +212,10 @@
                                           <td></td>
                                           <td></td>
                                           <td></td>
-                                          <td></td>
+                                          <td>
+                                            <input type="text" class="form-control money" readonly value="{{ $jumlah6[$no]['jumlah'] }}">
+                                            <?php $no++; ?>
+                                          </td>
                                           <td>{{ format_report($item->realisasi) }}</td>
                                           <td></td>
                                           <td></td>
