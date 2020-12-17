@@ -155,6 +155,10 @@
                               <button class="btn btn-primary btn-sm mb-3" id="pilih-rekening" type="button" data-toggle="modal" data-target="#akunModal">
                                   <i class="fas fa-plus"></i> Pilih Rekening
                               </button>
+
+                              <?php
+                                    dump(strpos('5.2.02.07.01.0001', '5.1'));
+                                  ?>
                               <table class="table table-rba">
                                 <thead>
                                     <th></th>
@@ -179,6 +183,7 @@
                                         'jumlah'    => $a->volume * $a->tarif
                                       ]);
                                     }
+                                    dump($jumlah6);
                                   ?>
                                   @foreach ($akunRba221 as $item)
                                       @if ($item->is_parent == 1)
@@ -193,7 +198,7 @@
                                             <?php
                                               $jumlah = 0;
                                               foreach ($jumlah6 as $j6) {
-                                                if (strpos($j6['kodeAkun'], $item->kode_akun) == 0) {
+                                                if (strpos($j6['kodeAkun'], $item->kode_akun) !== FALSE && strpos($j6['kodeAkun'], $item->kode_akun) == 0) {
                                                   $jumlah += $j6['jumlah'];
                                                 }
                                               }
@@ -213,8 +218,14 @@
                                           <td></td>
                                           <td></td>
                                           <td>
-                                            <input type="text" class="form-control money" readonly value="{{ $jumlah6[$no]['jumlah'] }}">
-                                            <?php $no++; ?>
+                                            <input type="text" class="form-control money" readonly value="
+                                            <?php
+                                              if (isset($jumlah6[$no]['jumlah'])) {
+                                                // echo $no;
+                                                echo $jumlah6[$no]['jumlah'];
+                                                $no++;
+                                              }
+                                            ?>">
                                           </td>
                                           <td>{{ format_report($item->realisasi) }}</td>
                                           <td></td>
@@ -395,7 +406,7 @@
         });
 
       const parents = [];
-       $.ajax({
+      $.ajax({
           type: "POST",
           url: "{{ route('admin.akun.parent') }}",
           data: "tipe=5",
