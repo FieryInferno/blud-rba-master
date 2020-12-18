@@ -72,7 +72,7 @@
                                   <th>Nominal PAK</th>
                                   <th>Selisih</th>
                                 @endif
-                              <th>Kegiatan</th>
+                              <th>Sub Kegiatan</th>
                               <th>Dibuat Pada</th>
                               <th>Opsi</th>
                             </tr>

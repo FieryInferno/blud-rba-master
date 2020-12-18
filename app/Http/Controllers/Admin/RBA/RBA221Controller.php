@@ -175,7 +175,7 @@ class RBA221Controller extends Controller
                 $query->where('created_at', '<=', $request->end_date);
             }
         };
-        $rba = $this->rba->get(['*'], $whereRba, ['unitKerja', 'rincianSumberDana', 'mapKegiatan.blud']);
+        $rba = $this->rba->get(['*'], $whereRba, ['unitKerja', 'rincianSumberDana', 'mapSubKegiatan.subKegiatanBlud']);
         $rba->sum(function ($rba){
             $rba->total_nominal_murni = $rba->rincianSumberDana->sum('nominal');
             $rba->total_nominal_pak = $rba->rincianSumberDana->sum('nominal_pak');
@@ -249,7 +249,7 @@ class RBA221Controller extends Controller
                 'pejabat_id' => $request->pejabat_unit,
                 'latar_belakang' => $request->latar_belakang,
                 'kelompok_sasaran' => $request->sasaran_kegiatan,
-                'map_kegiatan_id' => $request->kegiatan,
+                'map_kegiatan_id' => $request->subKegiatan,
                 'created_by' => auth()->user()->id,
                 'updated_by' => auth()->user()->id,
                 'status_anggaran_id' => auth()->user()->statusAnggaran->id,

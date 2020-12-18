@@ -24,4 +24,14 @@ class MapSubKegiatan extends Model
     {
         return $this->belongsTo('App\Models\SubKegiatan', 'kodeSubKegiatanApbd', 'kodeSubKegiatan');
     }
+
+    public function rba()
+    {
+        return $this->hasMany('App\Models\Rba', 'map_kegiatan_id', 'idMapSubKegiatan');
+    }
+
+    public function rka()
+    {
+        return $this->hasMany('App\Models\Rka', 'map_kegiatan_id', 'idMapSubKegiatan');
+    }
 }

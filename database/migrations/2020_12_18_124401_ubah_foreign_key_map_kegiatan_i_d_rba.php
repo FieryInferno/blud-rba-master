@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UbahForeignKeyMapKegiatanIDRka extends Migration
+class UbahForeignKeyMapKegiatanIDRba extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class UbahForeignKeyMapKegiatanIDRka extends Migration
      */
     public function up()
     {
-        Schema::table('rka', function (Blueprint $table) {
+        Schema::table('rba', function (Blueprint $table) {
             $table->dropForeign(['map_kegiatan_id']);
-            $table->foreign('map_kegiatan_id')->references('idMapSubKegiatan')->on('mapSubKegiatan')->onDelete('SET NULL');
+            $table->foreign('map_kegiatan_id')->references('idMapSubKegiatan')->on('mapSubKegiatan');
         });
     }
 
@@ -26,7 +26,7 @@ class UbahForeignKeyMapKegiatanIDRka extends Migration
      */
     public function down()
     {
-        Schema::table('rka', function (Blueprint $table) {
+        Schema::table('rba', function (Blueprint $table) {
             //
         });
     }
