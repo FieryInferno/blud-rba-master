@@ -103,7 +103,7 @@
                                     </button>
                                     
                                     <button class="btn btn-sm btn-danger btn-delete d-inline-block"
-                                      data-id="{{ $item->id }}">
+                                      data-id="{{ $item->id }}" onclick="hapusAkun(this)">
                                       <i class="fas fa-trash"></i> 
                                     </button>
                                   </div>
@@ -445,13 +445,6 @@
     //   }
     // });
 
-    $('.btn-delete').click(function () {
-      if (confirm('Anda yakin akan menghapus data ini?')) {
-        $('#delete-id').val($(this).attr('data-id'));
-        $('#form-delete').submit();
-      }
-    });
-
     $('.money').maskMoney({
         prefix: 'Rp.',
         thousands: '.',
@@ -510,6 +503,14 @@
     $('#edit-pagu').val(pagu);
     if (parent == 1){
       $('#edit-parent').attr('checked', true);
+    }
+  }
+
+  function hapusAkun(e) {
+    console.log($(e).attr('data-id'));
+    if (confirm('Anda yakin akan menghapus data ini?')) {
+      $('#delete-id').val($(e).attr('data-id'));
+      $('#form-delete').submit();
     }
   }
 </script>
