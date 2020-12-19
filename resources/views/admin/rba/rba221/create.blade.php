@@ -374,11 +374,9 @@
       var kodes           = [];
       var rekeningSSH     = [];
       var tabelRekening   = $('.table-rekening').DataTable({
-          // paging: false,
-          info: false,
-          // ordering: false,
-          // bFilter: false,
-        });
+        info: false,
+        ordering: false,
+      });
 
       const parents = [];
       $.ajax({
@@ -468,64 +466,6 @@
         _this.closest('tr').find('input[name="tarif[]"]').val(rupiah(harga));
         _this.closest('tr').find('input[name="satuan[]"]').val(satuan);
         _this.closest('tr').find('input[name="jumlah[]"]').val(rupiah(jumlah));
-      });
-
-      // add item
-      $('.table-rba tbody').on('click', '.btn-add', function () {
-        let tr = $(this).closest('tr');
-        let index = tableRBA.row(tr).index();
-        let kode = $(tr).children().eq(1).text();
-        let kodeSSH = rekeningSSH.filter(function (item) {
-          return item.kode_akun == kode;
-        })[0];
-        let element = `
-            <tr class="text-dark">
-              <td>
-                <button type="button" class="btn btn-remove btn-sm btn-danger"><i class="fas fa-minus"></i></button>
-              </td>
-              <td>
-                <input type="text" name="kode_rekening[]" class="form-control" value="${kode}" readonly>
-              </td>
-              <td>
-                <select class="form-control select_ssh" name="uraian[]">
-                  <option value="" readonly selected>-- Pilih Item --</option>
-                  ${kodeSSH.ssh.map(function (itemSSH) {
-                      return "<option value='"+itemSSH.id+"' data-harga='"+itemSSH.harga+"' data-satuan='"+itemSSH.satuan+"'>"+itemSSH.nama_barang+"</option>";
-                  }).join('')}
-                </select>
-              </td>
-              <td>
-                <input type="text" name="volume[]" class="form-control" onkeyup="typingVolume(event)" value="0">
-              </td>
-              <td>
-                <input type="text" name="satuan[]" class="form-control">
-              </td>
-              <td>
-                <input type="text" name="tarif[]" class="form-control money" onkeyup="typingTarif(event)" value="0">
-              </td>
-              <td>
-                <input type="text" name="jumlah[]" class="form-control" readonly>
-              </td>
-              <td>
-                <input type="text" name="realisasi[]" class="form-control" readonly>
-              </td>
-              <td>
-                <input type="text" name="jumlah_tahun[]" class="form-control" readonly>
-              </td>
-              <td>
-                <input type="text" name="keterangan[]" class="form-control">
-              </td>
-            </tr>
-          `;
-
-        let rowParent = $(tr).nextAll('tr.table-primary').first();
-        if (rowParent.length) {
-          $(rowParent).before(element);
-        } else {
-          $('.table-rba tbody').append(element);
-        }
-
-        initMaskMoney();
       });
 
       // remove item
@@ -735,6 +675,64 @@
         }
       }
     }
+
+    // add item
+    $('.table-rba tbody').on('click', '.btn-add', function () {
+      let tr = $(this).closest('tr');
+      let index = tableRBA.row(tr).index();
+      let kode = $(tr).children().eq(1).text();
+      let kodeSSH = rekeningSSH.filter(function (item) {
+        return item.kode_akun == kode;
+      })[0];
+      let element = `
+        <tr class="text-dark">
+          <td>
+            <button type="button" class="btn btn-remove btn-sm btn-danger"><i class="fas fa-minus"></i></button>
+          </td>
+          <td>
+            <input type="text" name="kode_rekening[]" class="form-control" value="${kode}" readonly>
+          </td>
+          <td>
+            <select class="form-control select_ssh" name="uraian[]">
+              <option value="" readonly selected>-- Pilih Item --</option>
+              ${kodeSSH.ssh.map(function (itemSSH) {
+                  return "<option value='"+itemSSH.id+"' data-harga='"+itemSSH.harga+"' data-satuan='"+itemSSH.satuan+"'>"+itemSSH.nama_barang+"</option>";
+              }).join('')}
+            </select>
+          </td>
+          <td>
+            <input type="text" name="volume[]" class="form-control" onkeyup="typingVolume(event)" value="0">
+          </td>
+          <td>
+            <input type="text" name="satuan[]" class="form-control">
+          </td>
+          <td>
+            <input type="text" name="tarif[]" class="form-control money" onkeyup="typingTarif(event)" value="0">
+          </td>
+          <td>
+            <input type="text" name="jumlah[]" class="form-control" readonly>
+          </td>
+          <td>
+            <input type="text" name="realisasi[]" class="form-control" readonly>
+          </td>
+          <td>
+            <input type="text" name="jumlah_tahun[]" class="form-control" readonly>
+          </td>
+          <td>
+            <input type="text" name="keterangan[]" class="form-control">
+          </td>
+        </tr>
+      `;
+
+      let rowParent = $(tr).nextAll('tr.table-primary').first();
+      if (rowParent.length) {
+        $(rowParent).before(element);
+      } else {
+        $('.table-rba tbody').append(element);
+      }
+
+      initMaskMoney();
+    });
 
     function typingVolume(event) {
       let tr = $(event.srcElement).closest('tr');
