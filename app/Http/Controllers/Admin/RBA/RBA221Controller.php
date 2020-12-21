@@ -270,7 +270,7 @@ class RBA221Controller extends Controller
                     'tahun_berikutnya' => $request->jumlah_tahun[$key], 
                     'keterangan' => $request->keterangan[$key]
                 ]);
-                 if (!$rbaRincianAnggaran)
+                if (!$rbaRincianAnggaran)
                     throw new \Exception('create rba rincian anggaran error');
             }
             foreach ($request->sumber_dana as $key => $data) {
