@@ -632,7 +632,17 @@
                       'Uraian': `<select class="form-control select_ssh" name="uraian[]">
                                   <option value="" readonly selected>-- Pilih Item --</option>
                                   ${item.ssh.map(function (itemSSH) {
-                                      return "<option value='"+itemSSH.id+"' data-harga='"+itemSSH.harga+"' data-satuan='"+itemSSH.satuan+"'>"+itemSSH.nama_barang+ " - Rp. " + rupiah(itemSSH.harga) + "</option>";
+                                    if (itemSSH.merk) {
+                                      merk  = " - " + itemSSH.merk;
+                                    } else {
+                                      merk  = "";
+                                    }
+                                    if (itemSSH.spesifikasi) {
+                                      spesifikasi  = " - " + itemSSH.spesifikasi;
+                                    } else {
+                                      spesifikasi  = "";
+                                    }
+                                    return "<option value='"+itemSSH.id+"' data-harga='"+itemSSH.harga+"' data-satuan='"+itemSSH.satuan+"'>"+itemSSH.nama_barang + merk + spesifikasi + " - Rp. " + rupiah(itemSSH.harga) + "</option>";
                                   }).join('')}
                                 </select>`,
                       'Volume': '<input type="text" name="volume[]" class="form-control" onkeyup="typingVolume(event)" value="0">',
