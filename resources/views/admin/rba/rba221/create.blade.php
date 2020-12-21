@@ -163,6 +163,8 @@
                                     <th></th>
                                     <th>Kode Rekening</th>
                                     <th>Uraian</th>
+                                    <th>Merk</th>
+                                    <th>Spesifikasi</th>
                                     <th>Volume</th>
                                     <th>Satuan</th>
                                     <th>Tarif</th>
@@ -302,6 +304,8 @@
         {data: ''},
         {data: 'Kode Rekening'},
         {data: 'Uraian'},
+        {data: 'Merk'},
+        {data: 'Spesifikasi'},
         {data: 'Volume'},
         {data: 'Satuan'},
         {data: 'Tarif'},
@@ -317,9 +321,11 @@
         { width: 150, targets: 4 },
         { width: 150, targets: 5 },
         { width: 150, targets: 6 },
-        { width: 100, targets: 7 },
-        { width: 200, targets: 8 },
-        { width: 300, targets: 9 },
+        { width: 150, targets: 7 },
+        { width: 150, targets: 8 },
+        { width: 100, targets: 9 },
+        { width: 200, targets: 10 },
+        { width: 300, targets: 11 },
       ],
       fixedColumns: true,
       display : true
@@ -458,14 +464,24 @@
 
       // select option ssh
       $('.table-rba tbody').on('change', '.select_ssh', function () {
-        let _this = $(this);
-        let volume = parseInt(_this.closest('tr').find('input[name="volume[]"]').val());
-        let harga = _this.find('option:selected').attr('data-harga');
-        let satuan = _this.find('option:selected').attr('data-satuan');
-        let jumlah = volume * harga;
+        let _this       = $(this);
+        let volume      = parseInt(_this.closest('tr').find('input[name="volume[]"]').val());
+        let harga       = _this.find('option:selected').attr('data-harga');
+        let satuan      = _this.find('option:selected').attr('data-satuan');
+        let jumlah      = volume * harga;
+        let merk        = _this.find('option:selected').attr('dataMerk');
+        let spesifikasi = _this.find('option:selected').attr('dataSpesifikasi');
+        if (merk == 'null') {
+          merk  = '';
+        }
+        if (spesifikasi == 'null') {
+          spesifikasi  = '';
+        }
         _this.closest('tr').find('input[name="tarif[]"]').val(rupiah(harga));
         _this.closest('tr').find('input[name="satuan[]"]').val(satuan);
         _this.closest('tr').find('input[name="jumlah[]"]').val(rupiah(jumlah));
+        _this.closest('tr').find('input[name="merk[]"]').val(merk);
+        _this.closest('tr').find('input[name="spesifikasi[]"]').val(spesifikasi);
       });
 
       // remove item
@@ -616,15 +632,17 @@
                   data.push(...[
                     {
                       '': '<button type="button" class="btn btn-add btn-sm btn-primary is-parent parent-item ' + item.id + '"><i class="fas fa-plus"></i></button>',
-                      'Kode Rekening': item.kode_akun,
-                      'Uraian': item.nama_akun,
-                      'Volume': '',
-                      'Satuan': '',
-                      'Tarif': '',
-                      'Jumlah': '',
-                      'Realisasi': '',
-                      'Jumlah Tahun Berikutnya': '',
-                      'Keterangan': '',
+                      'Kode Rekening'           : item.kode_akun,
+                      'Uraian'                  : item.nama_akun,
+                      'Merk'                    : '',
+                      'Spesifikasi'             : '',
+                      'Volume'                  : '',
+                      'Satuan'                  : '',
+                      'Tarif'                   : '',
+                      'Jumlah'                  : '',
+                      'Realisasi'               : '',
+                      'Jumlah Tahun Berikutnya' : '',
+                      'Keterangan'              : '',
                     },
                     {
                       '': '<button type="button" class="btn btn-remove btn-sm btn-danger ' + item.id + '"><i class="fas fa-minus"></i></button>',
@@ -642,15 +660,17 @@
                                     } else {
                                       spesifikasi  = "";
                                     }
-                                    return "<option value='"+itemSSH.id+"' data-harga='"+itemSSH.harga+"' data-satuan='"+itemSSH.satuan+"'>"+itemSSH.nama_barang + merk + spesifikasi + " - Rp. " + rupiah(itemSSH.harga) + "</option>";
+                                    return "<option value='"+itemSSH.id+"' data-harga='"+itemSSH.harga+"' data-satuan='"+itemSSH.satuan+"' dataMerk='" + itemSSH.merk +"' dataSpesifikasi='" + itemSSH.spesifikasi + "'>"+itemSSH.nama_barang + merk + spesifikasi + " - Rp. " + rupiah(itemSSH.harga) + "</option>";
                                   }).join('')}
                                 </select>`,
-                      'Volume': '<input type="text" name="volume[]" class="form-control" onkeyup="typingVolume(event)" value="0">',
-                      'Satuan': '<input type="text" name="satuan[]" class="form-control">',
-                      'Tarif': '<input type="text" name="tarif[]" class="form-control money" onkeyup="typingTarif(event)" value="0">',
-                      'Jumlah': '<input type="text" name="jumlah[]" class="form-control" readonly>',
-                      'Realisasi': '<input type="text" name="realisasi[]" class="form-control" readonly>',
-                      'Jumlah Tahun Berikutnya': '<input type="text" name="jumlah_tahun[]" class="form-control" readonly>',
+                      'Merk'                    : '<input type="text" name="merk[]" class="form-control" disabled>',
+                      'Spesifikasi'             : '<input type="text" name="spesifikasi[]" class="form-control" disabled>',
+                      'Volume'                  : '<input type="text" name="volume[]" class="form-control" onkeyup="typingVolume(event)" value="0">',
+                      'Satuan'                  : '<input type="text" name="satuan[]" class="form-control">',
+                      'Tarif'                   : '<input type="text" name="tarif[]" class="form-control money" onkeyup="typingTarif(event)" value="0">',
+                      'Jumlah'                  : '<input type="text" name="jumlah[]" class="form-control" readonly>',
+                      'Realisasi'               : '<input type="text" name="realisasi[]" class="form-control" readonly>',
+                      'Jumlah Tahun Berikutnya' : '<input type="text" name="jumlah_tahun[]" class="form-control" readonly>',
                       'Keterangan': '<input type="text" name="keterangan[]" class="form-control">',
                     }
                   ]);
@@ -658,18 +678,19 @@
                   data.push(
                     {
                       '': '<button type="button" class="btn btn-add btn-sm btn-primary is-parent d-none"><i class="fas fa-plus"></i></button>',
-                      'Kode Rekening': item.kode_akun,
-                      'Uraian': item.nama_akun,
-                      'Volume': '',
-                      'Satuan': '',
-                      'Tarif': '',
-                      'Jumlah': '',
-                      'Realisasi': '',
-                      'Jumlah Tahun Berikutnya': '',
-                      'Keterangan': '',
+                      'Kode Rekening'           : item.kode_akun,
+                      'Uraian'                  : item.nama_akun,
+                      'Merk'                    : '',
+                      'Spesifikasi'             : '',
+                      'Volume'                  : '',
+                      'Satuan'                  : '',
+                      'Tarif'                   : '',
+                      'Jumlah'                  : '',
+                      'Realisasi'               : '',
+                      'Jumlah Tahun Berikutnya' : '',
+                      'Keterangan'              : '',
                     });
                 }
-
             });
             tableRBA.rows.add(data).draw('false');
             initMaskMoney();
@@ -681,7 +702,6 @@
         for (let i = 0; i < tr.length; i++) {
           const element = tr[i];
           tableRBA.rows(element._DT_RowIndex).remove().draw();
-          console.log(element._DT_RowIndex);
         }
       }
     }
@@ -706,9 +726,25 @@
             <select class="form-control select_ssh" name="uraian[]">
               <option value="" readonly selected>-- Pilih Item --</option>
               ${kodeSSH.ssh.map(function (itemSSH) {
-                  return "<option value='"+itemSSH.id+"' data-harga='"+itemSSH.harga+"' data-satuan='"+itemSSH.satuan+"'>"+itemSSH.nama_barang+"</option>";
+                if (itemSSH.merk) {
+                  merk  = " - " + itemSSH.merk;
+                } else {
+                  merk  = "";
+                }
+                if (itemSSH.spesifikasi) {
+                  spesifikasi  = " - " + itemSSH.spesifikasi;
+                } else {
+                  spesifikasi  = "";
+                }
+                return "<option value='"+itemSSH.id+"' data-harga='"+itemSSH.harga+"' data-satuan='"+itemSSH.satuan+"' dataMerk='" + itemSSH.merk +"' dataSpesifikasi='" + itemSSH.spesifikasi + "'>"+itemSSH.nama_barang + merk + spesifikasi + " - Rp. " + rupiah(itemSSH.harga) + "</option>";
               }).join('')}
             </select>
+          </td>
+          <td>
+            <input type="text" name="merk[]" class="form-control" disabled>
+          </td>
+          <td>
+            <input type="text" name="spesifikasi[]" class="form-control" disabled>
           </td>
           <td>
             <input type="text" name="volume[]" class="form-control" onkeyup="typingVolume(event)" value="0">
