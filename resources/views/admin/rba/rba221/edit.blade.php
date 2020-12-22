@@ -240,7 +240,7 @@
                                                         data-harga="{{ $sshItem->harga }}"
                                                         data-satuan="{{ $sshItem->satuan }}"
                                                         {{ ($data->ssh->id == $sshItem->id) ? 'selected' : '' }}
-                                                        >{{ $sshItem->nama_barang }}</option>
+                                                        >{{ $sshItem->nama_barang }} - {{ $sshItem->merk }} - {{ $sshItem->spesifikasi }} - <?= "Rp " . number_format($sshItem->harga,2,',','.');; ?></option>
                                                     @endforeach
                                                   </select>
                                                 </td>
@@ -569,13 +569,17 @@
                         'Uraian': `<select class="form-control select_ssh" name="uraian[]">
                                     <option value="" disabled selected>-- Pilih Item --</option>
                                     ${item.ssh.map(function (itemSSH) {
-                                          let selectedItem;
-                                          if (itemSSH.id == itemRincian.ssh_id ){
-                                            selectedItem = 'selected';
-                                          }else{
-                                            selectedItem = '';
-                                          }
-                                        return "<option value='"+itemSSH.id+"' data-harga='"+itemSSH.harga+"' data-satuan='"+itemSSH.satuan+"' "+selectedItem+">"+itemSSH.nama_barang+"</option>";
+                                      if (itemSSH.merk) {
+                                        merk  = " - " + itemSSH.merk;
+                                      } else {
+                                        merk  = "";
+                                      }
+                                      if (itemSSH.spesifikasi) {
+                                        spesifikasi  = " - " + itemSSH.spesifikasi;
+                                      } else {
+                                        spesifikasi  = "";
+                                      }
+                                      return "<option value='"+itemSSH.id+"' data-harga='"+itemSSH.harga+"' data-satuan='"+itemSSH.satuan+"' dataMerk='" + itemSSH.merk +"' dataSpesifikasi='" + itemSSH.spesifikasi + "'>"+itemSSH.nama_barang + merk + spesifikasi + " - Rp. " + rupiah(itemSSH.harga) + "</option>";
                                     }).join('')}
                                   </select>`,
                         'Volume': `<input type="text" name="volume[]" class="form-control" onkeyup="typingVolume(event)" value="${itemRincian.volume}">`,
@@ -650,7 +654,17 @@
                       <select class="form-control select_ssh" name="uraian[]">
                         <option value="" disabled selected>-- Pilih Item --</option>
                           ${response.data.map(function (itemSSH) {
-                            return "<option value='"+itemSSH.id+"' data-harga='"+itemSSH.harga+"' data-satuan='"+itemSSH.satuan+"'>"+itemSSH.nama_barang+"</option>";
+                            if (itemSSH.merk) {
+                              merk  = " - " + itemSSH.merk;
+                            } else {
+                              merk  = "";
+                            }
+                            if (itemSSH.spesifikasi) {
+                              spesifikasi  = " - " + itemSSH.spesifikasi;
+                            } else {
+                              spesifikasi  = "";
+                            }
+                            return "<option value='"+itemSSH.id+"' data-harga='"+itemSSH.harga+"' data-satuan='"+itemSSH.satuan+"' dataMerk='" + itemSSH.merk +"' dataSpesifikasi='" + itemSSH.spesifikasi + "'>"+itemSSH.nama_barang + merk + spesifikasi + " - Rp. " + rupiah(itemSSH.harga) + "</option>";
                           }).join('')}
                       </select>
                     </td>
@@ -869,7 +883,7 @@
     }
 
     function getKegiatan(unit_kerja, id){
-       $.ajax({
+      $.ajax({
             url: "{{ route('admin.mapkegiatan.data') }}",
             type: "POST",
             data: "kode_unit_kerja="+unit_kerja+"&kode=rba&id="+"{{ $rba->id }}",
@@ -946,7 +960,17 @@
                       'Uraian': `<select class="form-control select_ssh" name="uraian[]">
                                   <option value="" readonly selected>-- Pilih Item --</option>
                                   ${item.ssh.map(function (itemSSH) {
-                                      return "<option value='"+itemSSH.id+"' data-harga='"+itemSSH.harga+"' data-satuan='"+itemSSH.satuan+"'>"+itemSSH.nama_barang+"</option>";
+                                    if (itemSSH.merk) {
+                                      merk  = " - " + itemSSH.merk;
+                                    } else {
+                                      merk  = "";
+                                    }
+                                    if (itemSSH.spesifikasi) {
+                                      spesifikasi  = " - " + itemSSH.spesifikasi;
+                                    } else {
+                                      spesifikasi  = "";
+                                    }
+                                    return "<option value='"+itemSSH.id+"' data-harga='"+itemSSH.harga+"' data-satuan='"+itemSSH.satuan+"' dataMerk='" + itemSSH.merk +"' dataSpesifikasi='" + itemSSH.spesifikasi + "'>"+itemSSH.nama_barang + merk + spesifikasi + " - Rp. " + rupiah(itemSSH.harga) + "</option>";
                                   }).join('')}
                                 </select>`,
                       'Volume': '<input type="text" name="volume[]" class="form-control" onkeyup="typingVolume(event)" value="0">',
