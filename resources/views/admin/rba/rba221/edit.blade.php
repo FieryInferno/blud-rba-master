@@ -76,9 +76,9 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col">
-                                <label>Kegiatan</label>
-                                <select name="kegiatan" id="kegiatan" class="form-control">
-                                    <option value="">Pilih Kegiatan</option>
+                                <label>Sub Kegiatan</label>
+                                <select name="subKegiatan" id="subKegiatan" class="form-control">
+                                    <option value="">Pilih Sub Kegiatan</option>
                                 </select>
                             </div>
                         </div>
@@ -93,7 +93,6 @@
                   </div>
                   </div>
                 </div>
-               
                   <div class="card" style="min-height:400px">
                     <div class="card-header">
                       <h4>Rincian RBA</h4>
@@ -884,31 +883,31 @@
 
     function getKegiatan(unit_kerja, id){
       $.ajax({
-            url: "{{ route('admin.mapkegiatan.data') }}",
-            type: "POST",
-            data: "kode_unit_kerja="+unit_kerja+"&kode=rba&id="+"{{ $rba->id }}",
-            success:function(response){
-              var dropdownKegiatan = $('#kegiatan');
-              dropdownKegiatan.empty();
-              if (response.total_data > 0){
-                $(response.data).each(function () {
-                    if (id){
-                      $("<option />", {
-                          val: this.id,
-                          text: this.blud.nama_kegiatan,
-                          selected: this.id == '{{ $rba->map_kegiatan_id }}' ? true : false
-                      }).appendTo(dropdownKegiatan);
-                    }else {
-                      $("<option />", {
-                          val: this.id,
-                          text: this.blud.nama_kegiatan
-                      }).appendTo(dropdownKegiatan);
-                    }
-                });
+        url     : "{{ route('admin.mapSubKegiatan.data') }}",
+        type    : "POST",
+        data    : "kode_unit_kerja="+unit_kerja+"&kode=rba&id="+"{{ $rba->id }}",
+        success : function(response){
+          var dropdownKegiatan  = $('#subKegiatan');
+          dropdownKegiatan.empty();
+          if (response.total_data > 0){
+            $(response.data).each(function () {
+              if (id){
+                $("<option />", {
+                    val       : this.idMapSubKegiatan,
+                    text      : this.sub_kegiatan_blud.namaSubKegiatan,
+                    selected  : this.idMapSubKegiatan == '{{ $rba->map_kegiatan_id }}' ? true : false
+                }).appendTo(dropdownKegiatan);
+              }else {
+                $("<option />", {
+                    val   : this.idMapSubKegiatan,
+                    text  : this.sub_kegiatan_blud.namaSubKegiatan
+                }).appendTo(dropdownKegiatan);
               }
-            }, error:function(jqXHR, exception){
-              console.log(jqXHR);
-            }
+            });
+          }
+        }, error:function(jqXHR, exception){
+          console.log(jqXHR);
+        }
       })
     }
 

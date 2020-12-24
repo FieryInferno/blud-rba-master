@@ -276,10 +276,10 @@ class RBA221Controller extends Controller
             foreach ($request->sumber_dana as $key => $data) {
                 $akun = $this->rba->getAkunId($request->kode_rekening_sumber_dana[$key]);
                 $rbaRincianSumberDana = $this->rincianSumberDana->create([
-                     'rba_id' => $rba->id, 
-                     'akun_id' => $akun->id, 
-                     'sumber_dana_id' => $request->sumber_dana[$key], 
-                     'nominal' => parse_format_number($request->nominal[$key]),
+                    'rba_id' => $rba->id, 
+                    'akun_id' => $akun->id, 
+                    'sumber_dana_id' => $request->sumber_dana[$key], 
+                    'nominal' => parse_format_number($request->nominal[$key]),
                 ]);
 
                 if (!$rbaRincianSumberDana)
